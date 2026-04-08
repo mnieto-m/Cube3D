@@ -19,8 +19,11 @@ INCLUDE_DIR = Include/
 LIBMLX	= ./MLX42
 
 #Files
-FILES = main
-
+FILES = main\
+		init/init\
+		parsing/parsing\
+		error/error\
+		error/frees
 # FILES_ADD
 LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
