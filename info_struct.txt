@@ -1,0 +1,7 @@
+Struct principal
+	-un puntero a un array que tenga un valor de llave y path (para comprobar que este lleno solo una vez en el parseo)
+	-un char * que tenga todo el mapa en el que se hara un lectura y depues una normalizaciond de la misma
+	
+
+Struct parsing
+	Solo la usare para el parseo del path no alocare memoria ya que es un array definido 

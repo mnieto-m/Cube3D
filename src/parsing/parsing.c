@@ -1,49 +1,54 @@
 #include "../Include/cube.h"
 
-int	parsing(t_data *data, char *map)
+
+static char *read_file_to_buffer(int fd, t_data *data)
 {
-    int		fd;
-    char	*line;
-    char	**lines;
-    int		i;
+	char *buffer ;
+	char *line;
+    char *tmp;
 
-    fd = open(map, O_RDONLY);
-    if (fd < 0)
-        print_error("No se pudo abrir el archivo");
+    buffer = NULL;
+    line = get_next_line(fd);
+	while (line)
+	{
+		if (data->max_len < ft_strlen(line))
+			data->max_len = ft_strlen(line);
+		tmp = buffer;
+		buffer = ft_strjoin(buffer, line);
+		free(tmp);
+		free(line);
+		if (!buffer)
+		{
+			close(fd);
+			print_error("Malloc error", data);
+		}
+		line = get_next_line(fd);
+	}
+	return (buffer);
+}
 
-    // Cuenta líneas para malloc
-    i = 0;
-    while ((line = get_next_line(fd)))
-    {
-        free(line);
-        i++;
-    }
-    close(fd);
+char	**read_map(char *map, t_data *data)
+{
+	int		fd;
+	char		**lines;
+	char        *buffer;
 
-    lines = malloc(sizeof(char *) * (i + 1));
-    if (!lines)
-        print_error("Malloc error");
-
-    fd = open(map, O_RDONLY);
-    if (fd < 0)
-        print_error("No se pudo abrir el archivo");
-
-    i = 0;
-    while ((line = get_next_line(fd)))
-    {
-        lines[i++] = line;
-    }
-    lines[i] = NULL;
-    close(fd);
-
-    // Llama al parsing de texturas
-    parsing_textures(data, lines);
-
-    // Libera las líneas si ya no las necesitas
-    i = 0;
-    while (lines[i])
-        free(lines[i++]);
-    free(lines);
-
-    return (1);
+	fd = open(map, O_RDONLY);
+	if (fd < 0)
+		print_error("No se pudo abrir el archivo", data);
+	buffer = read_file_to_buffer(fd, data);
+	close(fd);
+	lines = ft_split(buffer, '\n');
+	if (!lines)
+		print_error("Split error", data);
+	free(buffer);
+	return (lines);
+}
+void	parsing(t_data *data, char *map)
+{
+	int	i;
+    data->map = read_map(map, data);
+	parsing_textures(data);
+    //valid map
+    normalize_map(data);
 }

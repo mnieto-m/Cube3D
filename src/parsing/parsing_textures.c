@@ -1,6 +1,20 @@
 #include "../Include/cube.h"
-#include "../Include/parsing.h"
 
+static void is_duplicate(t_data *data, t_id eid)
+{
+    if (eid == ID_NO && data->path->no)
+        print_error("Identificador NO duplicado", data);
+    else if (eid == ID_SO && data->path->so)
+        print_error("Identificador SO duplicado", data);
+    else if (eid == ID_WE && data->path->we)
+        print_error("Identificador WE duplicado", data);
+    else if (eid == ID_EA && data->path->ea)
+        print_error("Identificador EA duplicado", data);
+    else if (eid == ID_F && data->path->floor_color != 0)// falta pàrsear el color
+        print_error("Identificador F duplicado", data);
+    else if (eid == ID_C && data->path->ceiling_color != 0)// falta pàrsear el color
+        print_error("Identificador C duplicado", data);
+}
 static int	match_id(const char *line, const char *id)
 {
     int	len;
@@ -23,14 +37,9 @@ static t_id	get_id_from_line(const char *line, const t_parsing_path *table)
     return (ID_UNKNOWN);
 }
 
-static void	parse_line(t_data *data, t_id eid, char *line, int *seen)
+static void	parse_line(t_data *data, t_id eid, char *line)
 {
-    if (eid < 6)
-    {
-        if (seen[eid])
-            print_error("Identificador duplicado");
-        seen[eid] = 1;
-    }
+    is_duplicate(data, eid);
     if (eid == ID_NO)
         data->path->no = ft_strdup(line + 2);
     else if (eid == ID_SO)
@@ -44,7 +53,7 @@ static void	parse_line(t_data *data, t_id eid, char *line, int *seen)
     else if (eid == ID_C)
         data->path->ceiling_color = 1; // Falta parsear el color
     else
-        print_error("Identificador desconocido");
+        print_error("Identificador desconocido", data);
 }
 
 int	parsing_textures(t_data *data, char **lines)
@@ -58,14 +67,13 @@ int	parsing_textures(t_data *data, char **lines)
         {"C",  ID_C},
         {NULL, ID_UNKNOWN}
     };
-    int	seen[6] = {0};
-    int	i = 0;
+    int i = 0;
     t_id eid;
 
     while (lines[i])
     {
         eid = get_id_from_line(lines[i], table);
-        parse_line(data, eid, lines[i], seen);
+        parse_line(data, eid, lines[i]);
         i++;
     }
     return (0);
