@@ -50,6 +50,7 @@ void	normalize_map(t_data *data)
 		}
 		i++;
 	}
+	data->max_h= i;
 	new_map[j] = NULL;
 	free_map(data->map);
 	data->map = new_map;

@@ -3,5 +3,8 @@
 
 #include "../Include/cube.h"
 
+struct s_data;
+typedef struct s_data t_data;
+
 int print_error(char *str, t_data *data);
 #endif

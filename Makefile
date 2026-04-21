@@ -21,7 +21,9 @@ LIBMLX	= ./MLX42
 #Files
 FILES = main\
 		init/init\
-		parsing/parsing\
+		parse/parse\
+		parse/valid_map\
+		parse/parse_\
 		error/error\
 		error/frees
 # FILES_ADD

@@ -17,6 +17,13 @@ typedef enum e_id
     ID_UNKNOWN
 } t_id;
 
+typedef struct s_parsing_path
+{
+    char *id;
+    t_id	eid;                 // "NO", "SO", etc.
+    void (*func)(char *line);        // función
+} t_parsing_path;
+
 const t_parsing_path	table[] = {
     {"NO", ID_NO},
     {"SO", ID_SO},
@@ -27,13 +34,13 @@ const t_parsing_path	table[] = {
     {NULL, ID_UNKNOWN}
 };
 
-typedef struct s_parsing_path
-{
-	char *id;
-	t_id	eid;                 // "NO", "SO", etc.
-	void (*func)(char *line);        // función
-} t_parsing_path;
 
 
-int  parsing(t_data *data, char *str);
+void	parse(t_data *data, char *map);
+int validate_map(t_data *data);
+int	parse_textures(t_data *data, char **lines);
+void	normalize_map(t_data *data);
+
+
+
 #endif

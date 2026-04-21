@@ -56,7 +56,7 @@ static void	parse_line(t_data *data, t_id eid, char *line)
         print_error("Identificador desconocido", data);
 }
 
-int	parsing_textures(t_data *data, char **lines)
+int	parse_textures(t_data *data, char **lines)
 {
     static const t_parsing_path table[] = {
         {"NO", ID_NO},

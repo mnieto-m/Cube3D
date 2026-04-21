@@ -15,12 +15,19 @@ typedef struct s_path
 	int ceiling_color;
 } t_path;
 
+typedef struct s_player
+{
+	int start_x;
+	int start_y;
+}t_player;
+
 typedef struct s_data
 {
 	t_path *path;
 	char **map;
 	int max_len;
-
+	int max_h;
+	t_player player;
 } t_data;
 
 t_data *init_data(char  *str);

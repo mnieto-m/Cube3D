@@ -44,11 +44,10 @@ char	**read_map(char *map, t_data *data)
 	free(buffer);
 	return (lines);
 }
-void	parsing(t_data *data, char *map)
+void	parse(t_data *data, char *map)
 {
-	int	i;
     data->map = read_map(map, data);
 	parsing_textures(data);
-    //valid map
     normalize_map(data);
+    valid_map(data);
 }

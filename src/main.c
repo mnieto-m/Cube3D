@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:19:53 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/04/12 20:58:48 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/04/21 21:59:21 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int main(int argc, char **argv)
 	data = init_data(argv[1]);
 	if(!data)
 		print_error("Malloc error",data);
-	parsing(data, argv[1]);
+	parse(data, argv[1]);
 	return(0);
 }
