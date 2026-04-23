@@ -2,6 +2,7 @@
 
 static int is_path_line(char *line)
 {
+	//LOG_FUNC();
 	if (!line || !*line)
 		return (1);
 	while (*line == ' ' || *line == '\t')
@@ -13,7 +14,6 @@ static int is_path_line(char *line)
 	return (0);
 }
 
-// Filtra y normaliza el mapa en un solo paso (más eficiente)
 void	normalize_map(t_data *data)
 {
 	int i;
@@ -23,10 +23,12 @@ void	normalize_map(t_data *data)
 	char **new_map;
 	char *new_line;
 
-	// 1. Contar solo líneas de mapa
+	//LOG_FUNC();
+	i = 0;
+	count = 0;
 	while (data->map[i])
 	{
-		if (!is_config_line(data->map[i]))
+		if (!is_path_line(data->map[i]))
 			count++;
 		i++;
 	}
@@ -37,7 +39,7 @@ void	normalize_map(t_data *data)
 	j = 0;
 	while (data->map[i])
 	{
-		if (!is_config_line(data->map[i]))
+		if (!is_path_line(data->map[i]))
 		{
 			len = ft_strlen(data->map[i]);
 			new_line = (char *)malloc(data->max_len + 1);
@@ -50,8 +52,8 @@ void	normalize_map(t_data *data)
 		}
 		i++;
 	}
-	data->max_h= i;
+	data->max_h = j;
 	new_map[j] = NULL;
-	free_map(data->map);
+	//free_data(data->map); falta por hacer
 	data->map = new_map;
 }

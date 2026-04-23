@@ -4,7 +4,9 @@
 
 int print_error(char *str, t_data *data)
 {
-	printf("%s", str);
-	free_main(data);
+	//LOG_FUNC();
+	printf("%s\n", str);
+	(void)(data);
+	//free_data(data);
 	exit(1);
 }

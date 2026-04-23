@@ -5,6 +5,16 @@
 #include "error.h"
 #include "parsing.h"
 
+#ifndef ENABLE_LOGGER
+# define ENABLE_LOGGER 0
+#endif
+
+#if ENABLE_LOGGER
+# define LOG_FUNC() ft_printf("[LOG] %s\n", __func__)
+#else
+# define LOG_FUNC() ((void)0)
+#endif
+
 typedef struct s_path
 {
 	char *no;

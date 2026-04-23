@@ -4,16 +4,19 @@
 
 void player_str_pos(t_data *data, int x, int y)
 {
-	if(data->player.start_x != NULL && data->player.start_y  != NULL)
+	LOG_FUNC();
+	if(data->player.start_x != -1 && data->player.start_y != -1)
 		print_error("INVALID MAP", data);
 	data->player.start_x = x;
 	data->player.start_y = y;
 }
+
 int validate_map(t_data *data)
 {
 	int y;
 	int x;
 
+	LOG_FUNC();
 	y = 0;
 	while(y < data->max_h)
 	{
@@ -26,7 +29,7 @@ int validate_map(t_data *data)
 			while(x < data->max_len)
 			{
 				if(ft_strchr("N", data->map[y][x]))
-					player_strt_pos(data,y,x);
+					player_str_pos(data, y, x);
 				if(ft_strchr("0NSEW", data->map[y][x]))
 					print_error("INVALID MAP", data);
 				x++;

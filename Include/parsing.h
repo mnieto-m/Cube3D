@@ -24,14 +24,14 @@ typedef struct s_parsing_path
     void (*func)(char *line);        // función
 } t_parsing_path;
 
-const t_parsing_path	table[] = {
-    {"NO", ID_NO},
-    {"SO", ID_SO},
-    {"WE", ID_WE},
-    {"EA", ID_EA},
-    {"F",  ID_F},
-    {"C",  ID_C},
-    {NULL, ID_UNKNOWN}
+static const t_parsing_path	table[] = {
+    {"NO", ID_NO, NULL},
+    {"SO", ID_SO, NULL},
+    {"WE", ID_WE, NULL},
+    {"EA", ID_EA, NULL},
+    {"F",  ID_F, NULL},
+    {"C",  ID_C, NULL},
+    {NULL, ID_UNKNOWN, NULL}
 };
 
 

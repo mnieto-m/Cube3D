@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mario <mario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:19:53 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/04/21 21:59:21 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/04/22 20:43:21 by mario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 int main(int argc, char **argv)
 {
 	t_data *data;
+
+	LOG_FUNC();
+	data = NULL;
 	
 	if(argc != 2)
 		print_error("Wrong numbers arguments",data);
