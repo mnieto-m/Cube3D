@@ -1,71 +1,47 @@
 #include "../Include/cube.h"
 
-
-static char *read_file_to_buffer(int fd, t_data *data)
+void	print_tdata(char *str, t_data *data)
 {
-	char *buffer ;
-	char *line;
-    char *tmp;
+    int	i;
 
-	//LOG_FUNC();
-    buffer = NULL;
-    line = get_next_line(fd);
-	while (line)
-	{
-		if (data->max_len < (int)ft_strlen(line))
-			data->max_len = ft_strlen(line);
-		tmp = buffer;
-		buffer = ft_strjoin(buffer, line);
-		free(tmp);
-		free(line);
-		if (!buffer)
-		{
-			close(fd);
-			print_error("Malloc error", data);
-		}
-		line = get_next_line(fd);
-	}
-	return (buffer);
+    puts(str);
+    if (data->path)
+    {
+        ft_printf("NO: %s\n", data->path->no);
+        ft_printf("SO: %s\n", data->path->so);
+        ft_printf("WE: %s\n", data->path->we);
+        ft_printf("EA: %s\n", data->path->ea);
+        ft_printf("Floor color: %d\n", data->path->floor_color);
+        ft_printf("Ceiling color: %d\n", data->path->ceiling_color);
+    }
+    else
+        ft_printf("Sin path\n");
+    ft_printf("max_len: %d\n", data->max_len);
+    ft_printf("max_h: %d\n", data->max_h);
+    ft_printf("Player start: x=%d, y=%d\n", data->player.start_x, data->player.start_y);
+    ft_printf("Mapa:\n");
+    i = 0;
+    if (data->map)
+    {
+        while (data->map[i])
+        {
+            ft_printf("[%d]: %s\n", i, data->map[i]);
+            i++;
+        }
+    }
+    else
+        ft_printf("Sin mapa\n");
+    ft_printf("----- fin t_data -----\n");
 }
 
-static void	log_map_content(char **lines)
-{
-	int	i;
 
-	i = 0;
-	ft_printf("[LOG] map content start\n");
-	while (lines && lines[i])
-	{
-		ft_printf("[LOG] map[%d]: %s\n", i, lines[i]);
-		i++;
-	}
-	ft_printf("[LOG] map content end\n");
-}
-
-char	**read_map(char *map, t_data *data)
+void	parse(t_data *data)
 {
-	int		fd;
-	char		**lines;
-	char        *buffer;
-
-	//LOG_FUNC();
-	fd = open(map, O_RDONLY);
-	if (fd < 0)
-		print_error("No se pudo abrir el archivo", data);
-	buffer = read_file_to_buffer(fd, data);
-	close(fd);
-	lines = ft_split(buffer, '\n');
-	if (!lines)
-		print_error("Split error", data);
-	log_map_content(lines);
-	free(buffer);
-	return (lines);
-}
-void	parse(t_data *data, char *map)
-{
-	//LOG_FUNC();
-    data->map = read_map(map, data);
+	LOG_FUNC();
 	parse_textures(data, data->map);
+	print_tdata("----- t_data antes de normalizar -----\n",data);
     normalize_map(data);
-	validate_map(data);
+	print_tdata("----- t_data despues de normalizar -----\n",data);
+	validate_textures(data);
+    validate_map(data);
 }

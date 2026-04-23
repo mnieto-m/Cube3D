@@ -36,8 +36,9 @@ static const t_parsing_path	table[] = {
 
 
 
-void	parse(t_data *data, char *map);
+void	parse(t_data *data);
 int validate_map(t_data *data);
+int validate_textures(t_data *data);
 int	parse_textures(t_data *data, char **lines);
 void	normalize_map(t_data *data);
 

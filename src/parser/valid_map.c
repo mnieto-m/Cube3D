@@ -2,7 +2,7 @@
 
 // player position in parsin x and y
 
-void player_str_pos(t_data *data, int x, int y)
+void player_str_pos(t_data *data, int y, int x)
 {
 	LOG_FUNC();
 	if(data->player.start_x != -1 && data->player.start_y != -1)

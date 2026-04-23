@@ -6,7 +6,7 @@
 #include "parsing.h"
 
 #ifndef ENABLE_LOGGER
-# define ENABLE_LOGGER 0
+# define ENABLE_LOGGER 1
 #endif
 
 #if ENABLE_LOGGER
@@ -41,6 +41,8 @@ typedef struct s_data
 } t_data;
 
 t_data *init_data(char  *str);
+char	**read_map(char *map, t_data *data);
+
 
 
 #endif

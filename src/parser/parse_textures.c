@@ -21,6 +21,11 @@ static int	match_id(const char *line, const char *id)
     int	len;
 
 	//LOG_FUNC();
+    if (!line)
+        return (0);
+    // Skip leading whitespace
+    while (*line && (*line == ' ' || *line == '\t'))
+        line++;
     len = ft_strlen(id);
     return (ft_strncmp(line, id, len) == 0
         && (line[len] == ' ' || line[len] == '\t'));
@@ -40,26 +45,47 @@ static t_id	get_id_from_line(const char *line, const t_parsing_path *table)
     return (ID_UNKNOWN);
 }
 
-static void	parse_line(t_data *data, t_id eid, char *line, int i)
+static void	parse_line(t_data *data, t_id eid, char *line)
 {
+	char	*start;
+
 	//LOG_FUNC();
+    if (eid == ID_UNKNOWN)
+        return;  // Skip lineas vacías y de mapa
     is_duplicate(data, eid);
+    
+    // Skip leading whitespace and ID
+    start = line;
+    while (*start && (*start == ' ' || *start == '\t'))
+        start++;
+    // Skip the ID (2 or 1 character)
+    while (*start && *start != ' ' && *start != '\t')
+        start++;
+    // Skip whitespace after ID
+    while (*start && (*start == ' ' || *start == '\t'))
+        start++;
+    
     if (eid == ID_NO)
-        data->path->no = ft_strdup(line + 2);
+        data->path->no = ft_strdup(start);
     else if (eid == ID_SO)
-        data->path->so = ft_strdup(line + 2);
+        data->path->so = ft_strdup(start);
     else if (eid == ID_WE)
-        data->path->we = ft_strdup(line + 2);
+        data->path->we = ft_strdup(start);
     else if (eid == ID_EA)
-        data->path->ea = ft_strdup(line + 2);
+        data->path->ea = ft_strdup(start);
     else if (eid == ID_F)
         data->path->floor_color = 1; // Falta parsear el color
     else if (eid == ID_C)
         data->path->ceiling_color = 1; // Falta parsear el color
-    else
-    {
-        print_error("Identificador desconocido", data);
-    }
+}
+
+static int	is_config_line(const char *line)
+{
+	if (!line || *line == '\0')
+		return (0);
+	return (match_id(line, "NO") || match_id(line, "SO") || 
+	        match_id(line, "WE") || match_id(line, "EA") ||
+	        match_id(line, "F") || match_id(line, "C"));
 }
 
 int	parse_textures(t_data *data, char **lines)
@@ -73,15 +99,48 @@ int	parse_textures(t_data *data, char **lines)
         {"C",  ID_C, NULL},
         {NULL, ID_UNKNOWN, NULL}
     };
-    int i = 0;
+    int i;
+    int found_map;
+    int last_map_idx;
     t_id eid;
+    char *p;
 
+    i = 0;
+    found_map = 0;
+    last_map_idx = -1;
 	LOG_FUNC();
-    while (lines[i]&& i )
+    while (lines[i])
     {
+        // Check if we found the map (a line starting with 0 or 1)
+        if (!found_map && (lines[i][0] == '0' || lines[i][0] == '1'))
+            found_map = 1;
+        
+        if (found_map && (lines[i][0] == '0' || lines[i][0] == '1'))
+            last_map_idx = i;
+        
+        // If we found the map and this line is a config line, error!
+        if (found_map && is_config_line(lines[i]))
+            print_error("INVALID MAP: Configuration line after map", data);
+        
+        // If we found the map, check for non-empty lines that are not map content
+        if (found_map && lines[i][0] != '\0')
+        {
+            p = lines[i];
+            while (*p && (*p == ' ' || *p == '\t'))
+                p++;
+            // If line has content but doesn't start with 0 or 1, it's forbidden
+            if (*p != '\0' && *p != '0' && *p != '1')
+                print_error("INVALID MAP: Forbidden content after map", data);
+        }
+        
         eid = get_id_from_line(lines[i], table);
-        parse_line(data, eid, lines[i], i);
+        parse_line(data, eid, lines[i]);
         i++;
     }
+    
+    // Check if there's content after the last map line
+    if (last_map_idx >= 0 && lines[last_map_idx + 1])
+        print_error("INVALID MAP: Content after map", data);
+    
     return (0);
 }

@@ -22,16 +22,34 @@ void	normalize_map(t_data *data)
 	size_t len;
 	char **new_map;
 	char *new_line;
+	int found_map;
+	int last_map_line;
 
 	//LOG_FUNC();
 	i = 0;
 	count = 0;
+	found_map = 0;
+	last_map_line = -1;
+	
+	// First pass: count map lines and find the last non-empty map line
 	while (data->map[i])
 	{
 		if (!is_path_line(data->map[i]))
+		{
+			if (!found_map)
+				found_map = 1;
 			count++;
+			last_map_line = i;
+		}
+		else if (found_map)
+		{
+			// If we found config after map started, check if it's empty line
+			if (data->map[i][0] == '\0')
+				print_error("INVALID MAP: Empty line after map", data);
+		}
 		i++;
 	}
+	
 	new_map = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!new_map)
 		print_error("Malloc error en extract_and_normalize_map_only", data);
@@ -52,8 +70,8 @@ void	normalize_map(t_data *data)
 		}
 		i++;
 	}
-	data->max_h = j;
 	new_map[j] = NULL;
 	//free_data(data->map); falta por hacer
 	data->map = new_map;
+	data->max_h = j;  
 }

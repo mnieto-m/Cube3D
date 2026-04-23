@@ -21,8 +21,10 @@ LIBMLX	= ./MLX42
 #Files
 FILES = main\
 		init/init\
+		init/read_map\
 		parser/parse\
 		parser/valid_map\
+		parser/validate_textures\
 		parser/parse_color\
 		parser/parse_textures\
 		parser/normalize_map\
