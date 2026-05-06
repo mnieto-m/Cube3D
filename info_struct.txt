@@ -1,7 +1,26 @@
 Struct principal
 	-un puntero a un array que tenga un valor de llave y path (para comprobar que este lleno solo una vez en el parseo)
 	-un char * que tenga todo el mapa en el que se hara un lectura y depues una normalizaciond de la misma
-	
+	-el largo y ancho en ints
+	-un puntero a t_player que tiene la posiscion inicial y habra que agregar la posiscion en movimiento
 
 Struct parsing
-	Solo la usare para el parseo del path no alocare memoria ya que es un array definido 
+	Solo la usare para el parseo del path no alocare memoria ya que es un array definido que se usa como tabla para comparar
+	los nombres del path y quedarnos con el direcion de la texture_parsing_table
+
+	Aquí tienes un resumen de la carpeta parser, escrito en tu estilo:
+
+parsing:
+
+parse.c
+Controla el flujo principal del parser: llama a las funciones de parseo, normalización y validación en orden.
+parse_textures.c
+Parsea las líneas de configuración de texturas y colores. Usa una tabla estática para comparar los identificadores y guardar los paths solo una vez.
+parse_color.c
+(Pendiente de completar) Debería encargarse de extraer y validar los valores RGB de F y C.
+validate_textures.c
+Comprueba que los paths de texturas existen, no están vacíos y terminan en .xpm.
+valid_map.c
+Valida el mapa: recorre todas las filas y columnas, comprueba que los bordes sean muros, que solo haya un jugador y que esté bien colocado, y que solo haya caracteres válidos.
+normalize_map.c
+Extrae solo las líneas del mapa, las rellena con espacios hasta el largo máximo para que todas tengan la misma longitud, y construye el mapa rectangular que se usará en la validación.
