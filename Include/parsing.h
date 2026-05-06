@@ -24,7 +24,7 @@ typedef struct s_parsing_path
     void (*func)(char *line);        // función
 } t_parsing_path;
 
-static const t_parsing_path	table[] = {
+static const t_parsing_path texture_parsing_table[] = {
     {"NO", ID_NO, NULL},
     {"SO", ID_SO, NULL},
     {"WE", ID_WE, NULL},

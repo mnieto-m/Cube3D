@@ -1,6 +1,5 @@
 #include "../Include/cube.h"
 
-
 static void	log_map_content(char **lines)
 {
 	int	i;
@@ -55,10 +54,8 @@ char	**read_map(char *map, t_data *data)
 		print_error("No se pudo abrir el archivo", data);
 	buffer = read_file_to_buffer(fd, data);
 	close(fd);
-	
 	if (!buffer || !*buffer)
 		print_error("INVALID MAP: File is empty", data);
-	
 	lines = ft_split(buffer, '\n');
 	if (!lines)
 		print_error("Split error", data);

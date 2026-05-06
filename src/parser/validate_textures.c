@@ -1,6 +1,4 @@
 #include "../Include/cube.h"
-#include <fcntl.h>
-#include <sys/stat.h>
 
 static int	is_valid_xpm_file(const char *path)
 {
@@ -16,9 +14,6 @@ static int	is_valid_xpm_file(const char *path)
 
 int validate_textures(t_data *data)
 {
-    if (!data || !data->path)
-        return (0);
-    
     if (!data->path->no)
         print_error("TEXTURES: Missing NO texture", data);
     else if (!is_valid_xpm_file(data->path->no))

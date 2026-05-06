@@ -41,7 +41,6 @@ void	parse(t_data *data)
 	parse_textures(data, data->map);
 	print_tdata("----- t_data antes de normalizar -----\n",data);
     normalize_map(data);
-	print_tdata("----- t_data despues de normalizar -----\n",data);
-	validate_textures(data);
     validate_map(data);
+	//print_tdata("----- t_data despues de normalizar -----\n",data);
 }
