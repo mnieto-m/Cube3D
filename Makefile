@@ -30,6 +30,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 # 1ª RULE
 all: libmlx $(NAME)
 
+# quita la linea  -DCMAKE_OSX_ARCHITECTURES=arm64 para ejecutar en linux
 libmlx:
 	cmake $(LIBMLX) -B $(LIBMLX)/build --log-level=ERROR -DCMAKE_OSX_ARCHITECTURES=arm64
 	cmake --build $(LIBMLX)/build --target mlx42 -j4
