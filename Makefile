@@ -16,13 +16,12 @@ SRC_DIR = src/
 OBJ_DIR = bin/obj/
 BIN_DIR = bin/
 INCLUDE_DIR = Include/
-LIBMLX	= ./MLX42
+LIBMLX = ./MLX42
 
 #Files
-FILES = main
+FILES = main render player draw orientation hooks background
 
-# FILES_ADD
-LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBS = $(LIBMLX)/build/libmlx42.a -L/opt/homebrew/lib -lglfw -pthread -lm
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 
@@ -32,7 +31,8 @@ OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 all: libmlx $(NAME)
 
 libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	cmake $(LIBMLX) -B $(LIBMLX)/build --log-level=ERROR -DCMAKE_OSX_ARCHITECTURES=arm64
+	cmake --build $(LIBMLX)/build --target mlx42 -j4
 
 # Comp bin
 $(NAME): $(OBJ) $(LIBFT_NAME)
@@ -52,13 +52,11 @@ $(LIBFT_NAME):
 clean:
 	$(RM) $(RMFLAGS) $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(RM) $(RMFLAGS) $(LIBMLX)/build
 
 # clean binary OBJ
 fclean: clean
 	$(RM) $(RMFLAGS) $(BIN_DIR) $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(RM) $(RMFLAGS) $(LIBMLX)/build
 
 # Recompilar todo
 re: fclean all 
