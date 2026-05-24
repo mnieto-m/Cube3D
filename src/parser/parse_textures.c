@@ -45,11 +45,11 @@ static void parse_line(t_data *data, t_id eid, char *line)
     char *trim;
 
     is_duplicate(data, eid);
-    // Salta espacios iniciales
+    //Salta espacios iniciales
     i= 0;
     while (line[i] && ft_isspace(line[i]))
         i++;
-        // Salta id
+    // Salta id
     while (line[i] && !ft_isspace(line[i]))
         i++;
     // Salta espacios despues
@@ -65,9 +65,9 @@ static void parse_line(t_data *data, t_id eid, char *line)
     else if (eid == ID_EA)
             data->path->ea = trim;
     else if (eid == ID_F)
-        data->path->floor_color = 1; // TODO: parsear color real
+        data->path->floor_color = parsing_color(); // TODO: parsear color real
     else if (eid == ID_C)
-        data->path->ceiling_color = 1; // TODO: parsear color real
+        data->path->ceiling_color = parsing_color(); // TODO: parsear color real
     else
         free(trim);
 }
