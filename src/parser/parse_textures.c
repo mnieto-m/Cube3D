@@ -10,9 +10,9 @@ static void is_duplicate(t_data *data, t_id eid)
         print_error("INVALID MAP: duplicate WE identifier", data);
     else if (eid == ID_EA && data->path->ea)
         print_error("INVALID MAP: duplicate EA identifier", data);
-    else if (eid == ID_F && data->path->floor_color != 0)
+    else if (eid == ID_F && data->path->floor_color != -1)
         print_error("INVALID MAP: duplicate F identifier", data);
-    else if (eid == ID_C && data->path->ceiling_color != 0)
+    else if (eid == ID_C && data->path->ceiling_color != -1)
         print_error("INVALID MAP: duplicate C identifier", data);
 }
 

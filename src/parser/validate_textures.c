@@ -32,9 +32,9 @@ int validate_textures(t_data *data)
         print_error("INVALID MAP: missing EA texture", data);
     else if (!is_valid_xpm_file(data->path->ea))
         print_error("INVALID MAP: EA must be .xpm file", data);
-    if (!data->path->floor_color)
+    if (data->path->floor_color == -1)
         print_error("INVALID MAP: missing floor color", data);
-    if (!data->path->ceiling_color)
+    if (data->path->ceiling_color == -1)
         print_error("INVALID MAP: missing ceiling color", data);
     return (1);
 }

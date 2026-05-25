@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 {
 	t_data *data;
 
-	LOG_FUNC();
+	//LOG_FUNC();
 	data = NULL;
 	
 	if(argc != 2)

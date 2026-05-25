@@ -25,6 +25,8 @@ t_data *init_data(char *src)
 	if(!data)
 		print_error("INVALID MAP: malloc error", data);
 	data->path = ft_calloc(1, sizeof(t_path));
+	data->path->ceiling_color = -1;
+	data->path->floor_color = -1;
 	data->map = NULL;
 	data->max_len = 0;
 	data->max_h = 0;
