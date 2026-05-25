@@ -1,0 +1,77 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║              TEST COMPLETO DE TODOS LOS MAPAS - cub3D                   ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+════════════════════════════════════════════════════════════════════════════
+✅ MAPAS VÁLIDOS (maps/good/) - Deben ser ACEPTADOS
+════════════════════════════════════════════════════════════════════════════
+PASS | subject_map.cub - Mapa complejo válido
+PASS | test_map.cub - Mapa de prueba simple
+PASS | test_map_hole.cub - Mapa con agujero
+PASS | square_map.cub - Mapa cuadrado
+PASS | matrix.cub - Mapa matrix
+PASS | cheese_maze.cub - Laberinto
+PASS | creepy.cub - Mapa creepy
+PASS | dungeon.cub - Mazmorra
+PASS | library.cub - Biblioteca
+PASS | sad_face.cub - Cara triste
+PASS | test_pos_bottom.cub - Jugador abajo
+PASS | test_pos_left.cub - Jugador izquierda
+PASS | test_pos_right.cub - Jugador derecha
+PASS | test_pos_top.cub - Jugador arriba
+PASS | test_textures.cub - Texturas
+PASS | test_whitespace.cub - Con espacios
+PASS | works.cub - Funciona
+
+════════════════════════════════════════════════════════════════════════════
+❌ MAPAS INVÁLIDOS (maps/bad/) - Deben ser RECHAZADOS
+════════════════════════════════════════════════════════════════════════════
+PASS | empty.cub - Archivo vacío
+PASS | player_none.cub - Sin jugador
+PASS | player_multiple.cub - Jugador duplicado
+PASS | player_on_edge.cub - Jugador en borde
+FAIL | map_first.cub - Mapa antes de config (debería rechazarse)
+     Output: Sin error detectado
+FAIL | map_middle.cub - Mapa en medio de config (debería rechazarse)
+     Output: Sin error detectado
+PASS | map_missing.cub - Mapa faltante
+PASS | map_only.cub - Solo mapa sin config
+PASS | map_too_small.cub - Mapa muy pequeño
+PASS | wall_none.cub - Sin muros
+PASS | wall_hole_north.cub - Agujero norte
+PASS | wall_hole_south.cub - Agujero sur
+FAIL | wall_hole_east.cub - Agujero este (debería rechazarse)
+     Output: Sin error detectado
+PASS | wall_hole_west.cub - Agujero oeste
+PASS | textures_missing.cub - Falta textura
+PASS | textures_none.cub - Sin texturas
+PASS | textures_duplicates.cub - Texturas duplicadas
+PASS | textures_invalid.cub - Texturas inválidas
+PASS | textures_not_xpm.cub - No son XPM
+PASS | textures_dir.cub - Texturas son directorio
+FAIL | textures_forbidden.cub - Texturas prohibidas (debería rechazarse)
+     Output: Sin error detectado
+FAIL | color_none.cub - Sin colores (debería rechazarse)
+     Output: Sin error detectado
+FAIL | color_missing.cub - Color faltante (debería rechazarse)
+     Output: Sin error detectado
+PASS | color_missing_floor_rgb.cub - RGB piso incompleto
+PASS | color_missing_ceiling_rgb.cub - RGB techo incompleto
+PASS | color_invalid_rgb.cub - RGB inválido
+FAIL | file_letter_end.cub - Extensión incorrecto (debería rechazarse)
+     Output: Sin error detectado
+PASS | filetype_wrong.buc - Tipo de archivo incorrecto
+FAIL | forbidden.cub - Contenido prohibido (debería rechazarse)
+     Output: Sin error detectado
+
+════════════════════════════════════════════════════════════════════════════
+📊 RESUMEN FINAL
+════════════════════════════════════════════════════════════════════════════
+
+Total de mapas testeados: 46
+PASS Pasados: 38
+FAIL Fallidos: 8
+
+Tasa de éxito: 82% (38/46)
+
+WARN  Hay 8 test(s) que fallaron

@@ -35,7 +35,7 @@ static char *read_file_to_buffer(int fd, t_data *data)
 		if (!buffer)
 		{
 			close(fd);
-			print_error("Malloc error", data);
+			print_error("INVALID MAP: malloc error", data);
 		}
 		line = get_next_line(fd);
 	}
@@ -51,14 +51,14 @@ char	**read_map(char *map, t_data *data)
 	//LOG_FUNC();
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		print_error("No se pudo abrir el archivo", data);
+		print_error("INVALID MAP: could not open file", data);
 	buffer = read_file_to_buffer(fd, data);
 	close(fd);
 	if (!buffer || !*buffer)
-		print_error("INVALID MAP: File is empty", data);
+		print_error("INVALID MAP: file is empty", data);
 	lines = ft_split(buffer, '\n');
 	if (!lines)
-		print_error("Split error", data);
+		print_error("INVALID MAP: split error", data);
 	log_map_content(lines);
 	free(buffer);
 	return (lines);

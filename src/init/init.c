@@ -20,10 +20,10 @@ t_data *init_data(char *src)
 	data = NULL;
 
 	if(!correct_format(src))
-		print_error("bad format map etc", data);
+		print_error("INVALID MAP: file extension must be .cub", data);
 	data = malloc(sizeof(t_data));
 	if(!data)
-		print_error("Malloc error", data);
+		print_error("INVALID MAP: malloc error", data);
 	data->path = ft_calloc(1, sizeof(t_path));
 	data->map = NULL;
 	data->max_len = 0;

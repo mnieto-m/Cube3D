@@ -41,7 +41,7 @@ int validate_map(t_data *data);
 int validate_textures(t_data *data);
 int	parse_textures(t_data *data, char **lines);
 void	normalize_map(t_data *data);
-
+int parsing_color(const char *line, t_data *data);
 
 
 #endif

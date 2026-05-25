@@ -1,15 +1,50 @@
 #include "../Include/cube.h"
 
-
-static void many_colors (char **split, t_data *data)
+static void free_split(char **split)
 {
-	if (split[3])
+	int i = 0;
+	if (!split)
+		return;
+	while (split[i])
 	{
-		//hay que agregar un bucle while para liberar los restantes 
-		ft_mfree(4, split[0], split[1], split[2], split);
-		print_error("Color: demasiados valores", data);
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+static void check_color_count(char **split, t_data *data)
+{
+    int count ;
+
+
+	LOG_FUNC();
+	count = 0;
+    while (split[count])
+		count++;
+	if (count != 3)
+	{
+		free_split(split);
+		if (count < 3)
+			print_error("INVALID MAP: missing color values (less than 3)", data);
+		else
+			print_error("INVALID MAP: too many color values (more than 3)", data);
 	}
 }
+static int	ft_strisnum(const char *str)
+{
+	int i = 0;
+	if (!str || !str[0])
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isnum((unsigned char)str[i])&& str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int parsing_color(const char *line, t_data *data)
 {
 	char    **split;
@@ -18,23 +53,23 @@ int parsing_color(const char *line, t_data *data)
 
 	split = ft_split(line, ',');
 	if (!split)
-		print_error("Malloc error", data);
-	i = 0;
-	while (i < 3)
+		print_error("INVALID MAP: malloc error", data);
+	check_color_count(split, data);
+	i = -1;
+	while (++i < 3)
 	{
-		if (!split[i] || !ft_isnum(split[i]))
+		if (!split[i] || !ft_strisnum(split[i]))
 		{
-			ft_mfree(4, split[0], split[1], split[2], split);
-			print_error("Color: valor no numérico", data);
+			free_split(split);
+			print_error("INVALID MAP: color value is not numeric", data);
 		}
 		rgb[i] = ft_atoi(split[i]);
 		if (rgb[i] < 0 || rgb[i] > 255)
 		{
-			ft_mfree(4, split[0], split[1], split[2], split);
-			print_error("Color: valor fuera de rango", data);
+			free_split(split);
+			print_error("INVALID MAP: color value out of range", data);
 		}
-		i++;
 	}
-	ft_mfree(4, split[0], split[1], split[2], split);
+	free_split(split);
 	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }

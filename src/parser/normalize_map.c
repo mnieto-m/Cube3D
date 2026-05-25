@@ -37,7 +37,7 @@ void	normalize_map(t_data *data)
 	
 	new_map = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!new_map)
-		print_error("Malloc error en extract_and_normalize_map_only", data);
+		print_error("INVALID MAP: malloc error in normalize_map", data);
 	i = 0;
 	j = 0;
 	while (data->map[i])
@@ -47,7 +47,7 @@ void	normalize_map(t_data *data)
 			len = ft_strlen(data->map[i]);
 			new_line = (char *)malloc(data->max_len + 1);
 			if (!new_line)
-				print_error("Malloc error en extract_and_normalize_map_only", data);
+				print_error("INVALID MAP: malloc error in normalize_map", data);
 			ft_memcpy(new_line, data->map[i], len);
 			ft_memset(new_line + len, ' ', data->max_len - len);
 			new_line[data->max_len] = '\0';
@@ -56,7 +56,7 @@ void	normalize_map(t_data *data)
 		i++;
 	}
 	new_map[j] = NULL;
-	//free_data(data->map); falta por hacer
+	free_map(data->map);
 	data->map = new_map;
 	data->max_h = j;  
 }

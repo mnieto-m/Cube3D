@@ -3,17 +3,17 @@
 static void is_duplicate(t_data *data, t_id eid)
 {
     if (eid == ID_NO && data->path->no)
-        print_error("Identificador NO duplicado", data);
+        print_error("INVALID MAP: duplicate NO identifier", data);
     else if (eid == ID_SO && data->path->so)
-        print_error("Identificador SO duplicado", data);
+        print_error("INVALID MAP: duplicate SO identifier", data);
     else if (eid == ID_WE && data->path->we)
-        print_error("Identificador WE duplicado", data);
+        print_error("INVALID MAP: duplicate WE identifier", data);
     else if (eid == ID_EA && data->path->ea)
-        print_error("Identificador EA duplicado", data);
+        print_error("INVALID MAP: duplicate EA identifier", data);
     else if (eid == ID_F && data->path->floor_color != 0)
-        print_error("Identificador F duplicado", data);
+        print_error("INVALID MAP: duplicate F identifier", data);
     else if (eid == ID_C && data->path->ceiling_color != 0)
-        print_error("Identificador C duplicado", data);
+        print_error("INVALID MAP: duplicate C identifier", data);
 }
 
 static int match_id(const char *line, const char *id)
@@ -43,7 +43,8 @@ static void parse_line(t_data *data, t_id eid, char *line)
 {
     int i = 0;
     char *trim;
-
+    
+    LOG_FUNC();
     is_duplicate(data, eid);
     //Salta espacios iniciales
     i= 0;
@@ -57,13 +58,13 @@ static void parse_line(t_data *data, t_id eid, char *line)
         i++;
     trim = ft_strtrim(&line[i], " \t");
     if (eid == ID_NO)
-            data->path->no = trim;
+        data->path->no = trim;
     else if (eid == ID_SO)
-            data->path->so = trim;
+        data->path->so = trim;
     else if (eid == ID_WE)
-            data->path->we = trim;
+        data->path->we = trim;
     else if (eid == ID_EA)
-            data->path->ea = trim;
+        data->path->ea = trim;
     else if (eid == ID_F)
         data->path->floor_color = parsing_color(trim, data); // TODO: parsear color real
     else if (eid == ID_C)
@@ -76,6 +77,8 @@ int parse_textures(t_data *data, char **lines)
 {
     int i = 0;
     t_id eid;
+
+    LOG_FUNC();
 
     while (lines[i])
     {

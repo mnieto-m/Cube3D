@@ -7,6 +7,7 @@ struct s_data;
 typedef struct s_data t_data;
 
 int print_error(char *str, t_data *data);
-void free_data(void *strtcutura);
+void free_data(t_data *data);
+void free_map(char **map);
 
 #endif

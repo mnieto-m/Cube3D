@@ -15,24 +15,26 @@ static int	is_valid_xpm_file(const char *path)
 int validate_textures(t_data *data)
 {
     if (!data->path->no)
-        print_error("TEXTURES: Missing NO texture", data);
+        print_error("INVALID MAP: missing NO texture", data);
     else if (!is_valid_xpm_file(data->path->no))
-        print_error("TEXTURES: NO must be .xpm file", data);
+        print_error("INVALID MAP: NO must be .xpm file", data);
     
     if (!data->path->so)
-        print_error("TEXTURES: Missing SO texture", data);
+        print_error("INVALID MAP: missing SO texture", data);
     else if (!is_valid_xpm_file(data->path->so))
-        print_error("TEXTURES: SO must be .xpm file", data);
-    
+        print_error("INVALID MAP: SO must be .xpm file", data);
     if (!data->path->we)
-        print_error("TEXTURES: Missing WE texture", data);
+        print_error("INVALID MAP: missing WE texture", data);
     else if (!is_valid_xpm_file(data->path->we))
-        print_error("TEXTURES: WE must be .xpm file", data);
+        print_error("INVALID MAP: WE must be .xpm file", data);
     
     if (!data->path->ea)
-        print_error("TEXTURES: Missing EA texture", data);
+        print_error("INVALID MAP: missing EA texture", data);
     else if (!is_valid_xpm_file(data->path->ea))
-        print_error("TEXTURES: EA must be .xpm file", data);
-    
+        print_error("INVALID MAP: EA must be .xpm file", data);
+    if (!data->path->floor_color)
+        print_error("INVALID MAP: missing floor color", data);
+    if (!data->path->ceiling_color)
+        print_error("INVALID MAP: missing ceiling color", data);
     return (1);
 }

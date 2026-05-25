@@ -4,12 +4,35 @@ echo "╔═══════════════════════�
 echo "║              TEST COMPLETO DE TODOS LOS MAPAS - cub3D                   ║"
 echo "╚══════════════════════════════════════════════════════════════════════════╝"
 
-# Colores
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+
+# Detectar si la salida es una terminal
+if [ -t 1 ]; then
+    USE_COLOR=1
+else
+    USE_COLOR=0
+fi
+
+if [ "$USE_COLOR" -eq 1 ]; then
+    GREEN='\033[0;32m'
+    RED='\033[0;31m'
+    YELLOW='\033[1;33m'
+    BLUE='\033[0;34m'
+    NC='\033[0m'
+    PASS_ICON="✅"
+    FAIL_ICON="❌"
+    WARN_ICON="⚠️"
+    PARTY_ICON="🎉"
+else
+    GREEN=''
+    RED=''
+    YELLOW=''
+    BLUE=''
+    NC=''
+    PASS_ICON="PASS"
+    FAIL_ICON="FAIL"
+    WARN_ICON="WARN"
+    PARTY_ICON="ALL TESTS PASSED"
+fi
 
 # Contadores
 total=0
@@ -45,17 +68,17 @@ test_map() {
     if [ $is_valid -eq $expected ]; then
         passed=$((passed + 1))
         if [ "$should_pass" = "PASS" ]; then
-            printf "${GREEN}✅ PASS${NC} | $description\n"
+            printf "%b%s%b | %s\n" "$GREEN" "$PASS_ICON" "$NC" "$description"
         else
-            printf "${GREEN}✅ REJECT${NC} | $description\n"
+            printf "%b%s%b | %s\n" "$GREEN" "$PASS_ICON" "$NC" "$description"
         fi
     else
         failed=$((failed + 1))
         if [ "$should_pass" = "PASS" ]; then
-            printf "${RED}❌ FAIL${NC} | $description (debería aceptarse)\n"
+            printf "%b%s%b | %s (debería aceptarse)\n" "$RED" "$FAIL_ICON" "$NC" "$description"
             echo "     Output: $(echo "$output" | grep -E 'INVALID|Error' | head -1)"
         else
-            printf "${RED}❌ FAIL${NC} | $description (debería rechazarse)\n"
+            printf "%b%s%b | %s (debería rechazarse)\n" "$RED" "$FAIL_ICON" "$NC" "$description"
             echo "     Output: Sin error detectado"
         fi
     fi
@@ -124,20 +147,21 @@ echo "════════════════════════�
 echo "📊 RESUMEN FINAL"
 echo "════════════════════════════════════════════════════════════════════════════"
 echo ""
-printf "Total de mapas testeados: ${BLUE}$total${NC}\n"
-printf "✅ Pasados: ${GREEN}$passed${NC}\n"
-printf "❌ Fallidos: ${RED}$failed${NC}\n"
+printf "Total de mapas testeados: %b%d%b\n" "$BLUE" "$total" "$NC"
+printf "%s Pasados: %b%d%b\n" "$PASS_ICON" "$GREEN" "$passed" "$NC"
+printf "%s Fallidos: %b%d%b\n" "$FAIL_ICON" "$RED" "$failed" "$NC"
 echo ""
 
+
 percentage=$((passed * 100 / total))
-printf "Tasa de éxito: ${YELLOW}$percentage%${NC} ($passed/$total)\n"
+printf "Tasa de éxito: %b%d%%%b (%d/%d)\n" "$YELLOW" "$percentage" "$NC" "$passed" "$total"
 
 if [ $failed -eq 0 ]; then
     echo ""
-    printf "${GREEN}🎉 ¡TODOS LOS TESTS PASARON!${NC}\n"
+    printf "%b%s%b\n" "$GREEN" "$PARTY_ICON" "$NC"
     exit 0
 else
     echo ""
-    printf "${RED}⚠️  Hay $failed test(s) que fallaron${NC}\n"
+    printf "%b%s  Hay %d test(s) que fallaron%b\n" "$RED" "$WARN_ICON" "$failed" "$NC"
     exit 1
 fi
