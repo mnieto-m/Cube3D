@@ -19,9 +19,19 @@ INCLUDE_DIR = Include/
 LIBMLX = ./MLX42
 
 #Files
-FILES = exec render player draw orientation hooks background
-
-LIBS = $(LIBMLX)/build/libmlx42.a -L/opt/homebrew/lib -lglfw -pthread -lm
+FILES = main\
+		init/init\
+		init/read_map\
+		parser/parse\
+		parser/valid_map\
+		parser/validate_textures\
+		parser/parse_color\
+		parser/parse_textures\
+		parser/normalize_map\
+		error/error\
+		error/frees
+# FILES_ADD
+LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 

@@ -1,0 +1,82 @@
+[LOG] main
+[LOG] init_data
+[LOG] correct_format
+[LOG] map content start
+[LOG] map[0]: NO textures/wolfenstein/grey_stone.xpm
+[LOG] map[1]: SO textures/wolfenstein/purple_stone.xpm
+[LOG] map[2]: WE textures/wolfenstein/red_brick.xpm
+[LOG] map[3]: EA textures/wolfenstein/wood.xpm
+[LOG] map[4]: F 18,53,25
+[LOG] map[5]: C 153,204,255
+[LOG] map[6]: 111111111111
+[LOG] map[7]: 1         11
+[LOG] map[8]: 1          1
+[LOG] map[9]: 111111111111
+[LOG] map[10]: 10S000000001
+[LOG] map[11]: 111111111111
+[LOG] map[12]: 11         1
+[LOG] map[13]: 111111111111
+[LOG] map content end
+[LOG] parse
+[LOG] parse_textures
+[LOG] parse_line
+[LOG] parse_line
+[LOG] parse_line
+[LOG] parse_line
+[LOG] parse_line
+[LOG] check_color_count
+[LOG] parse_line
+[LOG] check_color_count
+NO: textures/wolfenstein/grey_stone.xpm
+SO: textures/wolfenstein/purple_stone.xpm
+WE: textures/wolfenstein/red_brick.xpm
+EA: textures/wolfenstein/wood.xpm
+Floor color: 1193241
+Ceiling color: 10079487
+max_len: 41
+max_h: 16
+Player start: x=-1, y=-1
+Mapa:
+[0]: NO textures/wolfenstein/grey_stone.xpm
+[1]: SO textures/wolfenstein/purple_stone.xpm
+[2]: WE textures/wolfenstein/red_brick.xpm
+[3]: EA textures/wolfenstein/wood.xpm
+[4]: F 18,53,25
+[5]: C 153,204,255
+[6]: 111111111111
+[7]: 1         11
+[8]: 1          1
+[9]: 111111111111
+[10]: 10S000000001
+[11]: 111111111111
+[12]: 11         1
+[13]: 111111111111
+----- fin t_data -----
+[LOG] player_str_pos
+----- t_data antes de normalizar -----
+
+8
+41
+2
+4
+llegue al final==== forbidden.cub ====
+[3]: EA textures/wolfenstein/wood.xpm
+[4]: F 18,53,25
+[5]: C 153,204,255
+[6]: 111111111111
+[7]: 1         11
+[8]: 1          1
+[9]: 111111111111
+[10]: 10S000000001
+[11]: 111111111111
+[12]: 11         1
+[13]: 111111111111
+----- fin t_data -----
+[LOG] player_str_pos
+----- t_data antes de normalizar -----
+
+8
+41
+2
+4
+llegue al final==== forbidden.cub ====

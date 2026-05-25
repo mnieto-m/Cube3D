@@ -1,2 +1,3 @@
-# Cub3D
-Este es nuestro maravilloso proyecto cub3D
+# Cube3D
+Este es nuestro maravilloso proyecto cube3D
+
