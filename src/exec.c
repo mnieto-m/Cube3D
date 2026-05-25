@@ -12,7 +12,6 @@
 
 #include "../Include/cube.h"
 
-<<<<<<< HEAD
 static char	r0[]  = "1111111111111111111111111";
 static char	r1[]  = "1000000000110000000000001";
 static char	r2[]  = "1011000001110000000000001";
@@ -22,7 +21,7 @@ static char	r5[]  = "100000000011000001110111111111111";
 static char	r6[]  = "11110111111111011100000010001";
 static char	r7[]  = "11110111111111011101010010001";
 static char	r8[]  = "11000000110101011100000010001";
-static char	r9[]  = "10000000000000001100000010001";
+static char	r9[]  = "100000000000000N1100000010001";
 static char	r10[] = "10000000000000001101010010001";
 static char	r11[] = "11000001110101011111011110N0111";
 static char	r12[] = "11110111 1110101 101111010001";
@@ -90,16 +89,9 @@ static void	load_sprite(t_game *game)
 	mlx_delete_texture(tex);
 }
 
-int	main(int argc, char **argv)
+int	exec(t_game	*game)
 {
-	t_game	game;
 
-	if (argc != 2)
-	{
-		printf("Usage: ./cub3D <map.cub>\n");
-		return (1);
-	}
-	(void)argv;
 	find_player(g_map, &game.player);
 	game.map = g_map;
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
@@ -119,7 +111,6 @@ int	main(int argc, char **argv)
 	mlx_end(&game);
 	return (0);
 }
-=======
 
 /*
 int main(int argc, char **argv)
@@ -134,5 +125,4 @@ int main(int argc, char **argv)
 	parsing(data, argv[1]);
 	return(0);
 }
->>>>>>> e481d69faaff7576d4d7b656662e16012c93ac2d
 */

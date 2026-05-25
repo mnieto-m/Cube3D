@@ -19,7 +19,7 @@ INCLUDE_DIR = Include/
 LIBMLX = ./MLX42
 
 #Files
-FILES = main render player draw orientation hooks background
+FILES = exec render player draw orientation hooks background
 
 LIBS = $(LIBMLX)/build/libmlx42.a -L/opt/homebrew/lib -lglfw -pthread -lm
 

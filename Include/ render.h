@@ -1,5 +1,5 @@
-#ifndef CUBE_H
-#define CUBE_H
+#ifndef RENDER_H
+#define RENDER_H
 
 #include <math.h>
 #include "../Libft/include/libft.h"
@@ -15,25 +15,6 @@ typedef enum e_orientation
 	WEST,
 	EAST
 }   t_orientation;
-
-typedef struct s_path
-{
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	*floor;
-	char	*ceil;
-	int		floor_color;
-	int		ceiling_color;
-}	t_path;
-
-typedef struct s_data
-{
-	t_path	*path;
-	char	**map;
-	int		max_len;
-}	t_data;
 
 typedef struct s_player
 {
