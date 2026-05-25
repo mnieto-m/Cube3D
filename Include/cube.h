@@ -4,16 +4,7 @@
 #include "MLX42/MLX42.h"
 #include "error.h"
 #include "parsing.h"
-
-#ifndef ENABLE_LOGGER
-# define ENABLE_LOGGER 1
-#endif
-
-#if ENABLE_LOGGER
-# define LOG_FUNC() ft_printf("[LOG] %s\n", __func__)
-#else
-# define LOG_FUNC() ((void)0)
-#endif
+#include "render.h"
 
 typedef struct s_path
 {
@@ -27,22 +18,28 @@ typedef struct s_path
 
 typedef struct s_player
 {
-	int start_x;
-	int start_y;
+	int 	start_x;
+	int 	start_y;
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }t_player;
 
 typedef struct s_data
 {
 	t_path *path;
-	char **map;
-	int max_len;
-	int max_h;
-	t_player player;
+	char 	**map;
+	int 	max_len;
+	int 		max_h;
+	t_player	player;
 } t_data;
+
+
 
 t_data *init_data(char  *str);
 char	**read_map(char *map, t_data *data);
-
-
 
 #endif

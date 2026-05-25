@@ -44,7 +44,6 @@ static void parse_line(t_data *data, t_id eid, char *line)
     int i = 0;
     char *trim;
     
-    LOG_FUNC();
     is_duplicate(data, eid);
     //Salta espacios iniciales
     i= 0;
@@ -77,8 +76,6 @@ int parse_textures(t_data *data, char **lines)
 {
     int i = 0;
     t_id eid;
-
-    LOG_FUNC();
 
     while (lines[i])
     {

@@ -5,7 +5,6 @@ int correct_format(char *str)
 {
 	int len;
 
-	LOG_FUNC();
 	len = ft_strlen(str);
 	if (len >= 4 && ft_strncmp(str + len - 4, ".cub", 4) == 0)
 		return(1);
@@ -16,7 +15,6 @@ t_data *init_data(char *src)
 {
 	t_data *data;
 
-	LOG_FUNC();
 	data = NULL;
 
 	if(!correct_format(src))

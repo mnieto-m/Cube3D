@@ -29,7 +29,15 @@ FILES = main\
 		parser/parse_textures\
 		parser/normalize_map\
 		error/error\
-		error/frees
+		error/frees\
+		exec/exec\
+		exec/render\
+		exec/player\
+		exec/hooks\
+		exec/orientation\
+		exec/draw\
+		exec/background\
+	
 # FILES_ADD
 LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 

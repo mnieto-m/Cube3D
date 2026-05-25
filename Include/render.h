@@ -1,12 +1,20 @@
 #ifndef RENDER_H
 #define RENDER_H
 
+#include "cube.h"
 #include <math.h>
-#include "../Libft/include/libft.h"
-#include "MLX42/MLX42.h"
 
 #define WIDTH   1024
 #define HEIGHT  512
+
+struct s_data;
+typedef struct s_data t_data;
+
+struct s_player;
+typedef struct s_player t_player;
+
+struct s_path;
+typedef struct s_path t_path;
 
 typedef enum e_orientation
 {
@@ -16,24 +24,14 @@ typedef enum e_orientation
 	EAST
 }   t_orientation;
 
-typedef struct s_player
-{
-	double	x;
-	double	y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-}	t_player;
 
 typedef struct s_game
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	t_player		player;
-	char			**map;
+//	t_player		player;
 	double			last_time;
-	t_path			path;
+	//t_path			path;
 	mlx_texture_t	*tex_no;
 	mlx_texture_t	*tex_so;
 	mlx_texture_t	*tex_we;
@@ -64,15 +62,12 @@ typedef struct	s_ray
 	int		tex_x;
 }   t_ray;
 
-t_data				*init_data(char *str);
-int					print_error(char *str, t_data *data);
-void				free_main(void *structure);
-void				find_player(char **map, t_player *player);
-void				render(void *param);
+int					exec(t_data *data);
+void				render(void *param, t_data *data);
 void				key_hook(mlx_key_data_t keydata, void *param);
-void 				move_player(t_game *game);
-void				draw_ceiling(t_ray *ray, t_game	*game, int x);
-void				draw_floor(t_ray *ray, t_game	*game, int x);
+void 				move_player(t_game *game, t_data *data);
+void				draw_ceiling(t_ray *ray, t_game	*game, int x, t_data *data);
+void				draw_floor(t_ray *ray, t_game	*game, int x, t_data *data);
 mlx_texture_t		*get_texture(t_ray *ray, t_game *game);
 void				paint_wall(t_ray *ray, t_game *game, int x);
 void				close_hook(void *param);

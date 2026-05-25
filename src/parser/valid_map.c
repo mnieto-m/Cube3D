@@ -4,7 +4,6 @@
 
 void player_str_pos(t_data *data, int y, int x)
 {
-	LOG_FUNC();
 	if(data->player.start_x  == -1 && data->player.start_y  == -1)
 	{
 		data->player.start_x = x;
@@ -14,7 +13,7 @@ void player_str_pos(t_data *data, int y, int x)
 		print_error("INVALID MAP: DUPLICATE PLAYER", data);
 }
 
-int valided_player(t_data *data)
+int validated_player(t_data *data)
 {
 	printf("%i\n", data->player.start_x);
 	printf("%i\n", data->player.start_y);
@@ -52,6 +51,6 @@ int validate_map(t_data *data)
 		}
 		y++;
 	}
-	valided_player(data);
+	validated_player(data);
 	return (1);
 }

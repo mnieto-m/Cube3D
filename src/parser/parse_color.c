@@ -18,7 +18,6 @@ static void check_color_count(char **split, t_data *data)
     int count ;
 
 
-	LOG_FUNC();
 	count = 0;
     while (split[count])
 		count++;

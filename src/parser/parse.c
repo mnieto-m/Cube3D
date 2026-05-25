@@ -37,10 +37,7 @@ void	print_tdata(char *str, t_data *data)
 
 void	parse(t_data *data)
 {
-	LOG_FUNC();
 	parse_textures(data, data->map);
-	print_tdata("----- t_data antes de normalizar -----\n",data);
     normalize_map(data);
     validate_map(data);
-	//print_tdata("----- t_data despues de normalizar -----\n",data);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agnesgar <agnesgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:19:53 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/04/12 20:58:48 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/25 21:26:20 by agnesgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ static void	load_sprite(t_game *game)
 	mlx_delete_texture(tex);
 }
 
-int	exec(t_game	*game)
+int	exec(t_data *data)
 {
+	t_game	game;
 
-	find_player(g_map, &game.player);
-	game.map = g_map;
+	find_player(g_map, &data->player);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
@@ -104,8 +104,6 @@ int	exec(t_game	*game)
 	game.tex_we = mlx_load_png("./textures/west1.png");
 	game.tex_ea = mlx_load_png("./textures/east1.png");
 	load_sprite(&game);
-	game.path.ceiling_color = 0xACE5EEFF;
-	game.path.floor_color = 0x7CB87FFF;
 	mlx_loop_hook(game.mlx, render, &game);
 	mlx_loop(game.mlx);
 	mlx_end(&game);
