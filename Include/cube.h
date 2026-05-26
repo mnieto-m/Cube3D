@@ -5,6 +5,18 @@
 #include "error.h"
 #include "parsing.h"
 
+// Minimap colors
+#define MINIMAP_WALL_RGB 184, 134, 11	// Amarillo ocre oscuro
+#define MINIMAP_WALL_OPAQUE 255
+#define MINIMAP_FLOOR_TRANSPARENT 0
+
+// Minimap settings
+#define MINIMAP_SCALE 5	// Escala de píxeles por celda del mapa
+
+// Player minimap
+#define PLAYER_COLOR_RGB 255, 0, 0	// Rojo para el jugador
+#define PLAYER_SIZE 6	// Tamaño del cuadrado del jugador en píxeles
+
 #ifndef ENABLE_LOGGER
 # define ENABLE_LOGGER 1
 #endif
