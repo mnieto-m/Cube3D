@@ -37,7 +37,7 @@ FILES = main\
 		exec/orientation\
 		exec/draw\
 		exec/background\
-	
+
 # FILES_ADD
 LIBS = $(LIBMLX)/build/libmlx42.a -L/opt/homebrew/lib -ldl -lglfw -pthread -lm
 
@@ -46,38 +46,45 @@ SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
 # 1ª RULE
-all: libmlx $(NAME)
+all: $(NAME)
 
-# quita la linea  -DCMAKE_OSX_ARCHITECTURES=arm64 para ejecutar en linux
-libmlx:
-	cmake $(LIBMLX) -B $(LIBMLX)/build --log-level=ERROR -DCMAKE_OSX_ARCHITECTURES=arm64
-	cmake --build $(LIBMLX)/build --target mlx42 -j4
+# Compilar libft solo si no existe el .a
+$(LIBFT_NAME):
+	@echo "compiling libft..."
+	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory > /dev/null 2>&1
+
+# Compilar mlx solo si no existe el .a
+$(LIBMLX)/build/libmlx42.a:
+	@echo "compiling mlx42..."
+	@cmake $(LIBMLX) -B $(LIBMLX)/build --log-level=ERROR -DCMAKE_OSX_ARCHITECTURES=arm64 > /dev/null 2>&1
+	@cmake --build $(LIBMLX)/build --target mlx42 -j4 > /dev/null 2>&1
 
 # Comp bin
-$(NAME): $(OBJ) $(LIBFT_NAME)
-	$(MKDIR) $(BIN_DIR)
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_NAME) -o $(NAME) $(LIBS)
+$(NAME): $(OBJ) $(LIBFT_NAME) $(LIBMLX)/build/libmlx42.a
+	@$(MKDIR) $(BIN_DIR)
+	@echo "linking $(NAME)..."
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_NAME) -o $(NAME) $(LIBS)
+	@echo "done ✓"
 
 # Comp .o
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(MKDIR) $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	
-# Compilar la libft
-$(LIBFT_NAME):
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MKDIR) $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 # clean OBJ
 clean:
-	$(RM) $(RMFLAGS) $(OBJ_DIR)
-	$(MAKE) -C $(LIBFT_DIR) clean
+	@echo "cleaning objects..."
+	@$(RM) $(RMFLAGS) $(OBJ_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory > /dev/null 2>&1
 
 # clean binary OBJ
 fclean: clean
-	$(RM) $(RMFLAGS) $(BIN_DIR) $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	@echo "cleaning binaries..."
+	@$(RM) $(RMFLAGS) $(BIN_DIR) $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory > /dev/null 2>&1
+	@$(RM) $(RMFLAGS) $(LIBMLX)/build
 
 # Recompilar todo
-re: fclean all 
+re: fclean all
 
-.PHONY: all clean fclean libmlx
+.PHONY: all clean fclean re

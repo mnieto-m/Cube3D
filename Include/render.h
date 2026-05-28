@@ -4,8 +4,8 @@
 #include "cube.h"
 #include <math.h>
 
-#define WIDTH   1024
-#define HEIGHT  512
+#define WIDTH 1024
+#define HEIGHT 768
 
 struct s_data;
 typedef struct s_data t_data;

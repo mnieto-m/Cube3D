@@ -2,3 +2,4 @@
 *.o
 .claude
 cub3D
+.DS_Store
