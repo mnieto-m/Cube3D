@@ -12,26 +12,6 @@
 
 #include "../Include/cube.h"
 
-static char	r0[]  = "1111111111111111111111111";
-static char	r1[]  = "1000000000110000000000001";
-static char	r2[]  = "1011000001110000000000001";
-static char	r3[]  = "1001000000000000000000001";
-static char	r4[]  = "111111111011000001110000000000001";
-static char	r5[]  = "100000000011000001110111111111111";
-static char	r6[]  = "11110111111111011100000010001";
-static char	r7[]  = "11110111111111011101010010001";
-static char	r8[]  = "11000000110101011100000010001";
-static char	r9[]  = "100000000000000N1100000010001";
-static char	r10[] = "10000000000000001101010010001";
-static char	r11[] = "11000001110101011111011110N0111";
-static char	r12[] = "11110111 1110101 101111010001";
-static char	r13[] = "11111111 1111111 111111111111";
-
-char		*g_map[] = {
-	r0, r1, r2, r3, r4, r5, r6, r7,
-	r8, r9, r10, r11, r12, r13, NULL
-};
-
 void	find_player(char **map, t_player *player) // norminetear
 {
 	int	y;
@@ -93,7 +73,7 @@ int	exec(t_data *data)
 {
 	t_game	game;
 
-	find_player(g_map, &data->player);
+	find_player(data->map, &data->player);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);

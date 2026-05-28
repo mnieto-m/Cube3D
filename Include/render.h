@@ -39,6 +39,7 @@ typedef struct s_game
 	mlx_texture_t	*tex_floor;
 	mlx_texture_t	*tex_ceil;
 	mlx_image_t		*img_sprite;
+ 	t_data 			*data;
 }	t_game;
 
 typedef struct	s_ray
@@ -63,7 +64,7 @@ typedef struct	s_ray
 }   t_ray;
 
 int					exec(t_data *data);
-void				render(void *param, t_data *data);
+void				render(void *param);
 void				key_hook(mlx_key_data_t keydata, void *param);
 void 				move_player(t_game *game, t_data *data);
 void				draw_ceiling(t_ray *ray, t_game	*game, int x, t_data *data);
@@ -73,5 +74,6 @@ void				paint_wall(t_ray *ray, t_game *game, int x);
 void				close_hook(void *param);
 void				mlx_end(t_game *game);
 void   				put_pixel_fast(t_game *game, int x, int y, uint32_t color);
+
 
 #endif

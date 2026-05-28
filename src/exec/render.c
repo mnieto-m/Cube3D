@@ -93,7 +93,7 @@ void	init_ray(t_ray *ray, t_data *data)
 	}
 }
 
-void	render(void *param, t_data *data)
+void	render(void *param)
 {
 	t_game	*game;
 	t_ray	ray;
@@ -102,12 +102,12 @@ void	render(void *param, t_data *data)
 
 	game = param;
 	x = 0;
-	move_player(game, data);
+	move_player(game, game->data);
 	while (x < WIDTH)
 	{  // posición del jugador en x, +1, 0 o -1 respecto al centro.
 		cam_x = 2.0 * x / WIDTH - 1.0;
-		ray.dir_x = data->player.dir_x + data->player.plane_x * cam_x;
-		ray.dir_y = data->player.dir_y + data->player.plane_y * cam_x;
+		ray.dir_x = game->data->player.dir_x + game->data->player.plane_x * cam_x;
+		ray.dir_y = game->data->player.dir_y + game->data->player.plane_y * cam_x;
 		if (ray.dir_x == 0)
 			ray.deltadist_x = 1e50; // numero infinito por si es 0.0, el rayo nunca cruza una linea vertical
 		else // si va perfectamente en Y
@@ -116,8 +116,8 @@ void	render(void *param, t_data *data)
 			ray.deltadist_y = 1e50;
 		else
 			ray.deltadist_y = fabs(1.0 / ray.dir_y);
-		init_ray(&ray, data);
-		encounter_wall(&ray, game, x, data);
+		init_ray(&ray, game->data);
+		encounter_wall(&ray, game, x, game->data);
 		x++;
 	}
 }

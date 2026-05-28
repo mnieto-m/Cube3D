@@ -2,7 +2,7 @@ NAME = cub3D
 
 # Variables generales
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -DCMAKE_OSX_ARCHITECTURES=arm64
 RM = rm
 RMFLAGS = -rf
 MKDIR = mkdir -p
@@ -39,7 +39,7 @@ FILES = main\
 		exec/background\
 	
 # FILES_ADD
-LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBS = $(LIBMLX)/build/libmlx42.a -L/opt/homebrew/lib -ldl -lglfw -pthread -lm
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 
