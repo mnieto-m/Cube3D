@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 21:02:33 by agnesgar          #+#    #+#             */
-/*   Updated: 2026/05/29 17:28:40 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/29 21:42:12 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int	main(int argc, char **argv)
 	data->map = read_map(argv[1], data);
 	parse(data);
 	exec(data);
+	free_data(data);
 	return (0);
 }

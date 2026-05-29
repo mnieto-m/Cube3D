@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 17:29:00 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 17:57:52 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/29 20:38:56 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,10 @@ static int	is_path_line(char *line)
 	return (0);
 }
 
-void	normalize_map(t_data *data)
+static int	count_map_line(t_data *data)
 {
-	int		i;
-	int		j;
-	int		count;
-	size_t	len;
-	char	**new_map;
-	char	*new_line;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -44,11 +40,18 @@ void	normalize_map(t_data *data)
 		}
 		i++;
 	}
-	new_map = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!new_map)
-		print_error("INVALID MAP: malloc error in normalize_map", data);
-	i = 0;
+	return (count);
+}
+
+static void	new_maps_lines(t_data *data, char **new_map)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*new_line;
+
 	j = 0;
+	i = 0 ;
 	while (data->map[i])
 	{
 		if (!is_path_line(data->map[i]))
@@ -64,8 +67,20 @@ void	normalize_map(t_data *data)
 		}
 		i++;
 	}
-	new_map[j] = NULL;
+	data->max_h = j;
+}
+
+void	normalize_map(t_data *data)
+{
+	int		count;
+	char	**new_map;
+
+	count = count_map_line(data);
+	new_map = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!new_map)
+		print_error("INVALID MAP: malloc error in normalize_map", data);
+	new_maps_lines(data, new_map);
+	new_map[data->max_h] = NULL;
 	free_map(data->map);
 	data->map = new_map;
-	data->max_h = j;
 }

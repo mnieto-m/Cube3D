@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 18:17:05 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 18:17:14 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/29 20:50:06 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,12 @@ t_data	*init_data(char *src)
 	data->max_h = 0;
 	data->player.start_x = -1;
 	data->player.start_y = -1;
+	data->player.x = 0.0;
+	data->player.y = 0.0;
+	data->player.dir_x = 0.0;
+	data->player.dir_y = 0.0;
+	data->player.plane_x = 0.0;
+	data->player.plane_y = 0.0;
+	data->player.orientation = 'N';
 	return (data);
 }

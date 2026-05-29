@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 17:35:26 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 18:26:17 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/29 21:39:01 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,15 @@ static void	parse_line(t_data *data, t_id eid, char *line)
 	else if (eid == ID_EA)
 		data->path->ea = trim;
 	else if (eid == ID_F)
+	{
 		data->path->floor_color = parsing_color(trim, data);
+		free(trim);		
+	}
 	else if (eid == ID_C)
+	{
 		data->path->ceiling_color = parsing_color(trim, data);
+		free(trim);
+	}
 	else
 		free(trim);
 }
