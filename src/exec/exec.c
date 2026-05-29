@@ -79,6 +79,7 @@ int	exec(t_data *data)
 	game.data = data;
 	find_player(data);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
+	game.last_time = mlx_get_time();
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, key_hook, &game);
