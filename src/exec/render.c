@@ -14,15 +14,13 @@
 
 void	perpendicular_ray(t_ray	*ray, t_data *data)
 {
-	// distancia perpendicular si chocó en y o en x
-
 	if (ray->side == 0)
 	{
-		ray->wall_dist = ray->sidedist_x - ray->deltadist_x;
+		ray->wall_dist = ray->sidedist_x - ray->delta_x;
 	}
 	else if (ray->side == 1)
 	{
-		ray->wall_dist = ray->sidedist_y - ray->deltadist_y;
+		ray->wall_dist = ray->dist_y - ray->dist_y;
 	}
 	ray->line_height = HEIGHT / ray->wall_dist;
 	ray->draw_start = -ray->line_height / 2 + HEIGHT / 2;
@@ -31,11 +29,11 @@ void	perpendicular_ray(t_ray	*ray, t_data *data)
 	ray->draw_end = ray->line_height / 2 + HEIGHT / 2;
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
-	if (ray->side == 0) // este u oeste, el rayo viene de los lados, importa posicion Y
+	if (ray->side == 0)
 		ray->wall_x = data->player.y + ray->wall_dist * ray->dir_y;
-	else if (ray->side == 1) // norte o sur, rayo desde arriba o abajo, importa posicion X
+	else if (ray->side == 1)
 		ray->wall_x = data->player.x + ray->wall_dist * ray->dir_x;
-	ray->wall_x = ray->wall_x - floor(ray->wall_x); // solo nos quedamos con la parte decimal
+	ray->wall_x = ray->wall_x - floor(ray->wall_x);
 }
 
 void	encounter_wall(t_ray *ray, t_game *game, int x, t_data *data)
@@ -43,20 +41,19 @@ void	encounter_wall(t_ray *ray, t_game *game, int x, t_data *data)
 	int	hit;
 
 	hit = 0;
-
 	while (hit == 0)
 	{
-		if (ray->sidedist_x < ray->sidedist_y) // dda
+		if (ray->sidedist_x < ray->dist_y)
 		{
-			ray->sidedist_x += ray->deltadist_x;
+			ray->sidedist_x += ray->delta_x;
 			ray->map_x += ray->step_x;
 			ray->side = 0;
 		}
-		else // si la linea "y" es mas cercana
+		else
 		{
-			ray->sidedist_y += ray->deltadist_y;
+			ray->dist_y += ray->dist_y;
 			ray->map_y += ray->step_y;
-			ray->side = 1;			
+			ray->side = 1;
 		}
 		if ((data->map[ray->map_y][ray->map_x]) == '1')
 			hit = 1;
@@ -69,28 +66,34 @@ void	encounter_wall(t_ray *ray, t_game *game, int x, t_data *data)
 
 void	init_ray(t_ray *ray, t_data *data)
 {
-	ray->map_x = (int)data->player.x; // truncar decimal con (int) para saber celda
+	ray->map_x = (int)data->player.x;
 	ray->map_y = (int)data->player.y;
 	if (ray->dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->sidedist_x = (data->player.x - ray->map_x) * ray->deltadist_x;
+		ray->sidedist_x = (data->player.x - ray->map_x) * ray->delta_x;
 	}
 	else if (ray->dir_x > 0)
 	{
 		ray->step_x = 1;
-		ray->sidedist_x = (ray->map_x + 1.0 - data->player.x) * ray->deltadist_x;
+		ray->sidedist_x = (ray->map_x + 1.0 - data->player.x) * ray->delta_x;
 	}
 	if (ray->dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->sidedist_y = (data->player.y - ray->map_y) * ray->deltadist_y;
+		ray->dist_y = (data->player.y - ray->map_y) * ray->dist_y;
 	}
 	else if (ray->dir_y > 0)
 	{
 		ray->step_y = 1;
-		ray->sidedist_y = (ray->map_y + 1.0 - data->player.y) * ray->deltadist_y;
+		ray->dist_y = (ray->map_y + 1.0 - data->player.y) * ray->dist_y;
 	}
+}
+
+void	create_raydir(t_ray *ray, t_game *game, double cam_x)
+{
+	ray->dir_x = game->data->player.dir_x + game->data->player.plane_x * cam_x;
+	ray->dir_y = game->data->player.dir_y + game->data->player.plane_y * cam_x;
 }
 
 void	render(void *param)
@@ -104,18 +107,17 @@ void	render(void *param)
 	x = 0;
 	move_player(game, game->data);
 	while (x < WIDTH)
-	{  // posición del jugador en x, +1, 0 o -1 respecto al centro.
+	{
 		cam_x = 2.0 * x / WIDTH - 1.0;
-		ray.dir_x = game->data->player.dir_x + game->data->player.plane_x * cam_x;
-		ray.dir_y = game->data->player.dir_y + game->data->player.plane_y * cam_x;
+		create_raydir(&ray, game, cam_x);
 		if (ray.dir_x == 0)
-			ray.deltadist_x = 1e50; // numero infinito por si es 0.0, el rayo nunca cruza una linea vertical
-		else // si va perfectamente en Y
-			ray.deltadist_x = fabs(1.0 / ray.dir_x); // valor absoluto de un double
-		if (ray.dir_y == 0)
-			ray.deltadist_y = 1e50;
+			ray.delta_x = 1e50;
 		else
-			ray.deltadist_y = fabs(1.0 / ray.dir_y);
+			ray.delta_x = fabs(1.0 / ray.dir_x);
+		if (ray.dir_y == 0)
+			ray.dist_y = 1e50;
+		else
+			ray.dist_y = fabs(1.0 / ray.dir_y);
 		init_ray(&ray, game->data);
 		encounter_wall(&ray, game, x, game->data);
 		x++;

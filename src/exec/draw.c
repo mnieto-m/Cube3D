@@ -26,14 +26,14 @@ void	put_pixel_fast(t_game *game, int x, int y, uint32_t color)
 uint32_t	get_pixel_color(mlx_texture_t *texture, int index)
 {
 	return ((texture->pixels[index] << 24) | (texture->pixels[index
-			+ 1] << 16) | (texture->pixels[index
-			+ 2] << 8) | (texture->pixels[index + 3]));
+				+ 1] << 16) | (texture->pixels[index
+				+ 2] << 8) | (texture->pixels[index + 3]));
 }
 
 uint32_t	apply_fog(double factor, uint32_t color)
 {
 	return ((((uint8_t)((color >> 24)
-					* factor)) << 24) | (((uint8_t)(((color >> 16) & 0xFF)
+				* factor)) << 24) | (((uint8_t)(((color >> 16) & 0xFF)
 					* factor)) << 16) | (((uint8_t)(((color >> 8) & 0xFF)
 					* factor)) << 8) | (color & 0xFF));
 }
