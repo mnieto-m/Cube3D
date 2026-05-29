@@ -84,10 +84,10 @@ int	exec(t_data *data)
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, key_hook, &game);
 	mlx_close_hook(game.mlx, close_hook, &game);
-	game.tex_no = mlx_load_png("./textures/north1.png");
-	game.tex_so = mlx_load_png("./textures/south1.png");
-	game.tex_we = mlx_load_png("./textures/west1.png");
-	game.tex_ea = mlx_load_png("./textures/east1.png");
+	game.tex_no = mlx_load_png(data->path->no);
+	game.tex_so = mlx_load_png(data->path->so);
+	game.tex_we = mlx_load_png(data->path->we);
+	game.tex_ea = mlx_load_png(data->path->ea);
 	load_sprite(&game);
 	mlx_loop_hook(game.mlx, render, &game);
 	mlx_loop(game.mlx);
