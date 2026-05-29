@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 18:18:57 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 18:19:01 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/29 21:58:37 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_valid_xpm_file(const char *path)
 	len = ft_strlen(path);
 	if (len < 4)
 		return (0);
-	return (ft_strncmp(path + len - 4, ".xpm", 4) == 0);
+	return (ft_strncmp(path + len - 4, ".png", 4) == 0);
 }
 
 int	validate_textures(t_data *data)
