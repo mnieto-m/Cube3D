@@ -50,7 +50,9 @@ void	draw_tex_strip(t_ray *ray, t_game *game, int x, mlx_texture_t *texture)
 	double		factor;
 
 	step = (double)texture->height / ray->line_height;
-	tex_pos = 0;
+	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * step; /* empezar imagen en px cortados */
+	if (tex_pos < 0)
+		tex_pos = 0;
 	y = ray->draw_start;
 	factor = 1.0 / (1.0 + ray->wall_dist * 0.3);
 	while (y <= ray->draw_end)

@@ -74,7 +74,7 @@ int	exec(t_data *data)
 	t_game	game;
 
 	find_player(data->map, &data->player);
-	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
+	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, key_hook, &game);

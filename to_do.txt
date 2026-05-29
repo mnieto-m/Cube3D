@@ -2,3 +2,4 @@ quitar re link ✅
 quitar LOGs de mapas/bad
 pngs a xpm
 texturas en los mapas de wolfenstein??
+dejar ventana resizable o no? (mlx init)
