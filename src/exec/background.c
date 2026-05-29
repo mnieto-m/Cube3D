@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   background.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agnesgar <agnesgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 15:36:40 by agnesgar          #+#    #+#             */
-/*   Updated: 2026/05/25 21:31:44 by agnesgar         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:29:19 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/cube.h"
 
-void	draw_ceiling(t_ray *ray, t_game	*game, int x, t_data *data)
+void	draw_ceiling(t_ray *ray, t_game *game, int x, t_data *data)
 {
 	int	y;
 
@@ -24,7 +24,7 @@ void	draw_ceiling(t_ray *ray, t_game	*game, int x, t_data *data)
 	}
 }
 
-void	draw_floor(t_ray *ray, t_game	*game, int x, t_data *data)
+void	draw_floor(t_ray *ray, t_game *game, int x, t_data *data)
 {
 	int	y;
 

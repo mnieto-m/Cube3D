@@ -1,31 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   normalize_map.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/29 17:29:00 by mnieto-m          #+#    #+#             */
+/*   Updated: 2026/05/29 17:57:52 by mnieto-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Include/cube.h"
 
-static int is_path_line(char *line)
+static int	is_path_line(char *line)
 {
-	//LOG_FUNC();
 	if (!line || !*line)
 		return (1);
 	while (*line == ' ' || *line == '\t')
 		line++;
-	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) ||
-		!ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) ||
-		!ft_strncmp(line, "F", 1)  || !ft_strncmp(line, "C", 1))
+	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
+		|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)
+		|| !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
 		return (1);
 	return (0);
 }
 
 void	normalize_map(t_data *data)
 {
-	int i;
-	int j ;
-	int count;
-	size_t len;
-	char **new_map;
-	char *new_line;
+	int		i;
+	int		j;
+	int		count;
+	size_t	len;
+	char	**new_map;
+	char	*new_line;
 
-	//LOG_FUNC();
 	i = 0;
-	count = 0;	
+	count = 0;
 	while (data->map[i])
 	{
 		if (!is_path_line(data->map[i]))
@@ -34,7 +44,6 @@ void	normalize_map(t_data *data)
 		}
 		i++;
 	}
-	
 	new_map = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!new_map)
 		print_error("INVALID MAP: malloc error in normalize_map", data);
@@ -58,5 +67,5 @@ void	normalize_map(t_data *data)
 	new_map[j] = NULL;
 	free_map(data->map);
 	data->map = new_map;
-	data->max_h = j;  
+	data->max_h = j;
 }

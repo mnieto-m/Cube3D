@@ -37,7 +37,7 @@ FILES = main\
 		exec/orientation\
 		exec/draw\
 		exec/background\
-
+		parser/parse_textures_utils
 # FILES_ADD
 LIBS = $(LIBMLX)/build/libmlx42.a -L/opt/homebrew/lib -ldl -lglfw -pthread -lm
 

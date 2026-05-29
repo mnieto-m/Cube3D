@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agnesgar <agnesgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:19:53 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/25 21:26:20 by agnesgar         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:31:49 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/cube.h"
 
-void	find_player(char **map, t_player *player) // norminetear
+void	find_player(char **map, t_player *player)
 {
 	int	y;
 	int	x;
