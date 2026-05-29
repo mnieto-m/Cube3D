@@ -22,6 +22,45 @@ void	mlx_end(t_game *game)
 	mlx_terminate(game->mlx);
 }
 
+static void	find_player2(t_data *data)
+{
+	if (data->player.orientation == 'E')
+	{
+		data->player.dir_x = 1;
+		data->player.dir_y = 0;
+		data->player.plane_x = 0;
+		data->player.plane_y = 0.66;
+	}
+	else if (data->player.orientation == 'W')
+	{
+		data->player.dir_x = -1;
+		data->player.dir_y = 0;
+		data->player.plane_x = 0;
+		data->player.plane_y = -0.66;
+	}
+}
+
+static void	find_player(t_data *data)
+{
+	data->player.x = data->player.start_x + 0.5;
+	data->player.y = data->player.start_y + 0.5;
+	if (data->player.orientation == 'N')
+	{
+		data->player.dir_x = 0;
+		data->player.dir_y = -1;
+		data->player.plane_x = 0.66;
+		data->player.plane_y = 0;
+	}
+	else if (data->player.orientation == 'S')
+	{
+		data->player.dir_x = 0;
+		data->player.dir_y = 1;
+		data->player.plane_x = -0.66;
+		data->player.plane_y = 0;
+	}
+	find_player2(data);
+}
+
 static void	load_sprite(t_game *game)
 {
 	mlx_texture_t	*tex;
@@ -37,6 +76,8 @@ int	exec(t_data *data)
 {
 	t_game	game;
 
+	game.data = data;
+	find_player(data);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
@@ -52,18 +93,3 @@ int	exec(t_data *data)
 	mlx_end(&game);
 	return (0);
 }
-
-/*
-int main(int argc, char **argv)
-{
-	t_data *data;
-	
-	if(argc != 2)
-		print_error("Wrong numbers arguments",data);
-	data = init_data(argv[1]);
-	if(!data)
-		print_error("Malloc error",data);
-	parsing(data, argv[1]);
-	return(0);
-}
-*/

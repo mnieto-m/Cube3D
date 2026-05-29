@@ -50,7 +50,7 @@ typedef struct s_game
 	mlx_texture_t	*tex_floor;
 	mlx_texture_t	*tex_ceil;
 	mlx_image_t		*img_sprite;
- 	t_data 			*data;
+	t_data			*data;
 	double			tex_pos;
 	double			factor;
 }	t_game;
@@ -59,10 +59,10 @@ typedef struct s_ray
 {
 	double	dir_x;
 	double	dir_y;
-	double	deltadist_x;
-	double	deltadist_y;
-	double	sidedist_x;
-	double	sidedist_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
 	int		map_x;
 	int		map_y;
 	int		step_x;
@@ -74,40 +74,40 @@ typedef struct s_ray
 	double	wall_dist;
 	double	wall_x;
 	int		tex_x;
-}   t_ray;
+}	t_ray;
 
 typedef struct s_old
 {
-	double	olddir_x;
-	double	oldplane_x;
+	double	dir_x;
+	double	plane_x;
 
-} t_old;
+}	t_old;
 
 int					exec(t_data *data);
 void				render(void *param);
 void				key_hook(mlx_key_data_t keydata, void *param);
-void 				move_player(t_game *game, t_data *data);
+void				move_player(t_game *game, t_data *data);
 void				draw_ceiling(t_ray *ray, t_game	*game, int x, t_data *data);
 void				draw_floor(t_ray *ray, t_game	*game, int x, t_data *data);
 mlx_texture_t		*get_texture(t_ray *ray, t_game *game);
 void				paint_wall(t_ray *ray, t_game *game, int x);
 void				close_hook(void *param);
 void				mlx_end(t_game *game);
-void   				put_pixel_fast(t_game *game, int x, int y, uint32_t color);
+void				put_pixel_fast(t_game *game, int x, int y, uint32_t color);
 
-int						exec(t_data *data);
-void					render(void *param);
-void					key_hook(mlx_key_data_t keydata, void *param);
-void					move_player(t_game *game, t_data *data);
-void					draw_ceiling(t_ray *ray, t_game *game, int x,
-							t_data *data);
-void					draw_floor(t_ray *ray, t_game *game, int x,
-							t_data *data);
-mlx_texture_t			*get_texture(t_ray *ray, t_game *game);
-void					paint_wall(t_ray *ray, t_game *game, int x);
-void					close_hook(void *param);
-void					mlx_end(t_game *game);
-void					put_pixel_fast(t_game *game, int x, int y,
-							uint32_t color);
+int					exec(t_data *data);
+void				render(void *param);
+void				key_hook(mlx_key_data_t keydata, void *param);
+void				move_player(t_game *game, t_data *data);
+void				draw_ceiling(t_ray *ray, t_game *game, int x,
+						t_data *data);
+void				draw_floor(t_ray *ray, t_game *game, int x,
+						t_data *data);
+mlx_texture_t		*get_texture(t_ray *ray, t_game *game);
+void				paint_wall(t_ray *ray, t_game *game, int x);
+void				close_hook(void *param);
+void				mlx_end(t_game *game);
+void				put_pixel_fast(t_game *game, int x, int y,
+						uint32_t color);
 
 #endif

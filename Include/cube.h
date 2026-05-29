@@ -33,6 +33,7 @@ typedef struct s_player
 {
 	int			start_x;
 	int			start_y;
+	char		orientation;
 	double		x;
 	double		y;
 	double		dir_x;

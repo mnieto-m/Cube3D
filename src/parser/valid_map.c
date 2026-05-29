@@ -18,6 +18,7 @@ void	player_str_pos(t_data *data, int y, int x)
 	{
 		data->player.start_x = x;
 		data->player.start_y = y;
+		data->player.orientation = data->map[y][x];
 	}
 	else if (data->player.start_x != -1 && data->player.start_y != -1)
 		print_error("INVALID MAP: DUPLICATE PLAYER", data);

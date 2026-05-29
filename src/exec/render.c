@@ -16,11 +16,11 @@ void	perpendicular_ray(t_ray	*ray, t_data *data)
 {
 	if (ray->side == 0)
 	{
-		ray->wall_dist = ray->sidedist_x - ray->delta_x;
+		ray->wall_dist = ray->side_x - ray->delta_x;
 	}
 	else if (ray->side == 1)
 	{
-		ray->wall_dist = ray->dist_y - ray->dist_y;
+		ray->wall_dist = ray->side_y - ray->delta_y;
 	}
 	ray->line_height = HEIGHT / ray->wall_dist;
 	ray->draw_start = -ray->line_height / 2 + HEIGHT / 2;
@@ -43,15 +43,15 @@ void	encounter_wall(t_ray *ray, t_game *game, int x, t_data *data)
 	hit = 0;
 	while (hit == 0)
 	{
-		if (ray->sidedist_x < ray->dist_y)
+		if (ray->side_x < ray->side_y)
 		{
-			ray->sidedist_x += ray->delta_x;
+			ray->side_x += ray->delta_x;
 			ray->map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->dist_y += ray->dist_y;
+			ray->side_y += ray->delta_y;
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
@@ -71,22 +71,22 @@ void	init_ray(t_ray *ray, t_data *data)
 	if (ray->dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->sidedist_x = (data->player.x - ray->map_x) * ray->delta_x;
+		ray->side_x = (data->player.x - ray->map_x) * ray->delta_x;
 	}
 	else if (ray->dir_x > 0)
 	{
 		ray->step_x = 1;
-		ray->sidedist_x = (ray->map_x + 1.0 - data->player.x) * ray->delta_x;
+		ray->side_x = (ray->map_x + 1.0 - data->player.x) * ray->delta_x;
 	}
 	if (ray->dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->dist_y = (data->player.y - ray->map_y) * ray->dist_y;
+		ray->side_y = (data->player.y - ray->map_y) * ray->delta_y;
 	}
 	else if (ray->dir_y > 0)
 	{
 		ray->step_y = 1;
-		ray->dist_y = (ray->map_y + 1.0 - data->player.y) * ray->dist_y;
+		ray->side_y = (ray->map_y + 1.0 - data->player.y) * ray->delta_y;
 	}
 }
 
@@ -115,9 +115,9 @@ void	render(void *param)
 		else
 			ray.delta_x = fabs(1.0 / ray.dir_x);
 		if (ray.dir_y == 0)
-			ray.dist_y = 1e50;
+			ray.delta_y = 1e50;
 		else
-			ray.dist_y = fabs(1.0 / ray.dir_y);
+			ray.delta_y = fabs(1.0 / ray.dir_y);
 		init_ray(&ray, game->data);
 		encounter_wall(&ray, game, x, game->data);
 		x++;
