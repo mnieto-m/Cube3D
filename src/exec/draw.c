@@ -45,37 +45,27 @@ void	draw_tex_strip(t_ray *ray, t_game *game, int x, mlx_texture_t *texture)
 	int			index;
 	uint32_t	color;
 	double		step;
-	double		tex_pos;
-	double		factor;
 
 	step = (double)texture->height / ray->line_height;
-	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * step;
-		/* empezar imagen en px cortados */
-	if (tex_pos < 0)
-		tex_pos = 0;
+	game->tex_pos = (ray->draw_start - HEIGHT
+			/ 2 + ray->line_height / 2) * step;
+	if (game->tex_pos < 0)
+		game->tex_pos = 0;
 	y = ray->draw_start;
-	factor = 1.0 / (1.0 + ray->wall_dist * 0.3);
+	game->factor = 1.0 / (1.0 + ray->wall_dist * 0.3);
 	while (y <= ray->draw_end)
 	{
-		tex_y = (int)tex_pos;
+		tex_y = (int)game->tex_pos;
 		if (tex_y >= (int)texture->height)
 			tex_y = texture->height - 1;
-		tex_pos += step;
+		game->tex_pos += step;
 		index = (tex_y * texture->width + ray->tex_x) * 4;
 		color = get_pixel_color(texture, index);
-		color = apply_fog(factor, color);
+		color = apply_fog(game->factor, color);
 		put_pixel_fast(game, x, y, color);
 		y++;
 	}
 }
-
-// cuanto has avanzado en la tira, de 0 a line height
-	//* la escala para recorrer la textura entera
-// si line_height es grande avanza despacio x la textura,
-	//si es pequeña se encoge
-// si line_height = 400, 128 (pixeles) / 400 = 0.32, avanza despacio y se estira
-// si es 20, 128 / 20 = 6.4, avanza rapido y se encoge,
-	//es una multiplicacion x ese numero y son coordenadas y,x
 
 void	paint_wall(t_ray *ray, t_game *game, int x)
 {

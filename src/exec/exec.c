@@ -12,43 +12,6 @@
 
 #include "../Include/cube.h"
 
-void	find_player(char **map, t_player *player)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == 'N' || map[y][x] == 'S'
-				|| map[y][x] == 'E' || map[y][x] == 'W')
-			{
-				player->x = x + 0.5;
-				player->y = y + 0.5;
-				if (map[y][x] == 'N')
-				{ player->dir_x = 0; player->dir_y = -1;
-					player->plane_x = 0.66; player->plane_y = 0; }
-				else if (map[y][x] == 'S')
-				{ player->dir_x = 0; player->dir_y = 1;
-					player->plane_x = -0.66; player->plane_y = 0; }
-				else if (map[y][x] == 'E')
-				{ player->dir_x = 1; player->dir_y = 0;
-					player->plane_x = 0; player->plane_y = 0.66; }
-				else
-				{ player->dir_x = -1; player->dir_y = 0;
-					player->plane_x = 0; player->plane_y = -0.66; }
-				map[y][x] = '0';
-				return ;
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
 void	mlx_end(t_game *game)
 {
 	mlx_delete_texture(game->tex_no);
@@ -65,7 +28,8 @@ static void	load_sprite(t_game *game)
 
 	tex = mlx_load_png("./textures/sprite.png");
 	game->img_sprite = mlx_texture_to_image(game->mlx, tex);
-	mlx_image_to_window(game->mlx, game->img_sprite, WIDTH - game->img_sprite->width, HEIGHT - game->img_sprite->height);
+	mlx_image_to_window(game->mlx, game->img_sprite,
+		WIDTH - game->img_sprite->width, HEIGHT - game->img_sprite->height);
 	mlx_delete_texture(tex);
 }
 
@@ -73,7 +37,6 @@ int	exec(t_data *data)
 {
 	t_game	game;
 
-	find_player(data->map, &data->player);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
