@@ -6,17 +6,19 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 17:29:03 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 17:29:04 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/29 18:24:55 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/cube.h"
 
-static void free_split(char **split)
+static void	free_split(char **split)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!split)
-		return;
+		return ;
 	while (split[i])
 	{
 		free(split[i]);
@@ -25,42 +27,46 @@ static void free_split(char **split)
 	free(split);
 }
 
-static void check_color_count(char **split, t_data *data)
+static void	check_color_count(char **split, t_data *data)
 {
-    int count ;
-
+	int	count;
 
 	count = 0;
-    while (split[count])
+	while (split[count])
 		count++;
 	if (count != 3)
 	{
 		free_split(split);
 		if (count < 3)
-			print_error("INVALID MAP: missing color values (less than 3)", data);
+			print_error("INVALID MAP: missing color values (less than 3)",
+				data);
 		else
-			print_error("INVALID MAP: too many color values (more than 3)", data);
+			print_error("INVALID MAP: too many color values (more than 3)",
+				data);
 	}
 }
+
 static int	ft_strisnum(const char *str)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!str || !str[0])
 		return (0);
 	while (str[i])
 	{
-		if (!ft_isnum((unsigned char)str[i])&& str[i] != ' ')
+		if (!ft_isnum((unsigned char)str[i]) && str[i] != ' ')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int parsing_color(const char *line, t_data *data)
+int	parsing_color(const char *line, t_data *data)
 {
-	char    **split;
-	int     rgb[3];
-	int     i;
+	char	**split;
+	int		rgb[3];
+	int		i;
 
 	split = ft_split(line, ',');
 	if (!split)

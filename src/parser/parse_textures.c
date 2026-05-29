@@ -6,13 +6,11 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 17:35:26 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 17:54:04 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/05/29 18:26:17 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/cube.h"
-
-
 
 static void	is_duplicate(t_data *data, t_id eid)
 {
@@ -86,19 +84,17 @@ static void	parse_line(t_data *data, t_id eid, char *line)
 
 int	parse_textures(t_data *data, char **lines)
 {
-	int		i;
-	t_id	eid;
-    
-static const t_parsing_path texture_parsing_table[] = 
-{
-    {"NO", ID_NO, NULL},
-    {"SO", ID_SO, NULL},
-    {"WE", ID_WE, NULL},
-    {"EA", ID_EA, NULL},
-    {"F",  ID_F, NULL},
-    {"C",  ID_C, NULL},
-    {NULL, ID_UNKNOWN, NULL}
-};
+	int							i;
+	t_id						eid;
+	static const t_parsing_path	texture_parsing_table[] = {
+	{"NO", ID_NO, NULL},
+	{"SO", ID_SO, NULL},
+	{"WE", ID_WE, NULL},
+	{"EA", ID_EA, NULL},
+	{"F", ID_F, NULL},
+	{"C", ID_C, NULL},
+	{NULL, ID_UNKNOWN, NULL}};
+
 	i = 0;
 	while (lines[i])
 	{
