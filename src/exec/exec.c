@@ -88,6 +88,13 @@ int	exec(t_data *data)
 	game.tex_so = mlx_load_png(data->path->so);
 	game.tex_we = mlx_load_png(data->path->we);
 	game.tex_ea = mlx_load_png(data->path->ea);
+	if (!game.tex_no || !game.tex_so || !game.tex_we || !game.tex_ea)
+	{
+		mlx_terminate(game.mlx);
+		free_data(data);
+		ft_printf("ERROR: texture file not found\n");
+		exit(1);
+	}
 	load_sprite(&game);
 	mlx_loop_hook(game.mlx, render, &game);
 	mlx_loop(game.mlx);
