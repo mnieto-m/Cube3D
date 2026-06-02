@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 17:35:26 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 21:39:01 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/06/02 14:26:22 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,10 @@ static void	parse_line(t_data *data, t_id eid, char *line)
 	skip_word(line, &i);
 	skip_spaces(line, &i);
 	trim = ft_strtrim(&line[i], " \t");
-	if (eid == ID_NO)
-		data->path->no = trim;
-	else if (eid == ID_SO)
-		data->path->so = trim;
-	else if (eid == ID_WE)
-		data->path->we = trim;
-	else if (eid == ID_EA)
-		data->path->ea = trim;
-	else if (eid == ID_F)
-	{
-		data->path->floor_color = parsing_color(trim, data);
-		free(trim);		
-	}
-	else if (eid == ID_C)
-	{
-		data->path->ceiling_color = parsing_color(trim, data);
-		free(trim);
-	}
+	if (eid == ID_F || eid == ID_C)
+		set_color(data, eid, trim);
 	else
-		free(trim);
+		set_texture_path(data, eid, trim);
 }
 
 int	parse_textures(t_data *data, char **lines)

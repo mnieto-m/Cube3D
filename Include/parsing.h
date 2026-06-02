@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 17:43:07 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 17:55:47 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/06/02 14:27:42 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ void					normalize_map(t_data *data);
 int						parsing_color(const char *line, t_data *data);
 void					skip_word(const char *line, int *i);
 void					skip_spaces(const char *line, int *i);
+void					set_color(t_data *data, t_id eid, char *trim);
+void					set_texture_path(t_data *data, t_id eid, char *trim);
 
 #endif

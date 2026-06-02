@@ -6,7 +6,7 @@
 /*   By: mnieto-m <mnieto-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:19:53 by mnieto-m          #+#    #+#             */
-/*   Updated: 2026/05/29 17:31:49 by mnieto-m         ###   ########.fr       */
+/*   Updated: 2026/06/02 14:22:23 by mnieto-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,7 @@ int	exec(t_data *data)
 	if (!game.tex_no || !game.tex_so || !game.tex_we || !game.tex_ea)
 	{
 		mlx_terminate(game.mlx);
-		free_data(data);
-		ft_printf("ERROR: texture file not found\n");
-		exit(1);
+		print_error("ERROR: texture file not found\n", data);
 	}
 	load_sprite(&game);
 	mlx_loop_hook(game.mlx, render, &game);
